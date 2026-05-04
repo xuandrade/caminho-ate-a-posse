@@ -315,19 +315,16 @@ reader.readAsText(file);
 };
 
 const handleReset = () => {
-const ok1 = window.confirm(
-'⚠️ ATENÇÃO — Isso vai APAGAR tudo:\n\n' +
-'• Todas as suas disciplinas e tópicos\n' +
-'• Todo o progresso (checks, XP, heatmap)\n' +
-'• Streak, shields, conquistas\n' +
-'• Logs de estudo\n' +
-'• Pet vai voltar para o ovo\n\n' +
-'Sugestão FORTE: baixe um backup ANTES, caso queira voltar.\n\n' +
-'Tem certeza absoluta?'
+const typed = window.prompt(
+'⚠️ ATENÇÃO — Isso vai APAGAR todo o seu progresso:\n\n' +
+'• Disciplinas, tópicos, checks\n' +
+'• XP, streak, conquistas\n' +
+'• Logs de estudo, heatmap\n' +
+'• Pet volta para o ovo\n\n' +
+'Faça backup antes! Para confirmar, digite exatamente:\n\nRESETAR TOGA'
 );
-if (!ok1) return;
-const ok2 = window.confirm('Última confirmação: zerar TUDO?');
-if (!ok2) return;
+if (typed !== 'RESETAR TOGA') return;
+localStorage.removeItem('toga_onboarded');
 onReset();
 onToast('reset_done');
 };
@@ -373,7 +370,17 @@ onChange={handleFileChange} className="file-input-hidden" />
 function App() {
 const [tweaks, setTweaks] = useTweaks(DEFAULTS);
 
-const [shared, setShared] = useState(() => loadKey(KEYS.shared, window.DA.INITIAL_SHARED));
+// Primeiro uso: se não existe toga_onboarded, apaga dados herdados e inicia limpo
+const [shared, setShared] = useState(() => {
+  if (!localStorage.getItem('toga_onboarded')) {
+    localStorage.removeItem(KEYS.shared);
+    localStorage.removeItem(KEYS.obj);
+    localStorage.removeItem(KEYS.disc);
+    localStorage.removeItem(KEYS.meta);
+    localStorage.setItem('toga_onboarded', '1');
+  }
+  return loadKey(KEYS.shared, window.DA.INITIAL_SHARED);
+});
 const [objState, setObjState] = useState(() => loadKey(KEYS.obj, window.DA.INITIAL_OBJETIVA));
 const [discState, setDiscState] = useState(() => loadKey(KEYS.disc, window.DA.INITIAL_DISCURSIVA));
 const [meta, setMeta] = useState(() => loadKey(KEYS.meta, { mode: tweaks.mode }));
@@ -426,8 +433,12 @@ const setMode = (m) => { setTweaks('mode', m); setMeta(mt => ({ ...mt, mode: m }
 const [showSplash, setShowSplash] = useState(tweaks.showSplash);
 const [pomodoroOpen, setPomodoroOpen] = useState(false);
 const [goalsOpen, setGoalsOpen] = useState(false);
+const [sessionLogOpen, setSessionLogOpen] = useState(false);
+const [activeTab, setActiveTab] = useState('hoje');
+const [legalModal, setLegalModal] = useState(null); // 'privacy' | 'terms' | null
+const [showOnboarding, setShowOnboarding] = useState(() => !localStorage.getItem('toga_onboarded_tutorial'));
 const [toasts, setToasts] = useState([]);
-const [evolutionEvent, setEvolutionEvent] = useState(null); // { from, to } or null
+const [evolutionEvent, setEvolutionEvent] = useState(null);
 const prevPetStageRef = useRef(window.DA.getPetStage(shared.xp));
 
 const pushToast = (kind) => setToasts(t => [...t, { id: Math.random(), kind }]);
@@ -474,7 +485,7 @@ setShared(s => {
 const logs = [...s.dailyLogs];
 const idx = logs.findIndex(l => l.date === date);
 if (idx >= 0) {
-logs[idx] = { ...logs[idx], hours: logs[idx].hours + h, questions: logs[idx].questions + q, reviews: logs[idx].reviews + r };
+logs[idx] = { ...logs[idx], hours: (logs[idx].hours||0) + h, questions: (logs[idx].questions||0) + q, reviews: (logs[idx].reviews||0) + r };
 } else {
 logs.push({ date, hours: h, questions: q, reviews: r });
 logs.sort((a, b) => a.date.localeCompare(b.date));
@@ -482,7 +493,32 @@ logs.sort((a, b) => a.date.localeCompare(b.date));
 const xpGain = Math.round(h * 30 + q * 1.5 + r * 2);
 return { ...s, dailyLogs: logs, xp: s.xp + xpGain };
 });
-window.celebrateVictory();
+window.celebrateVictory && window.celebrateVictory();
+};
+
+const handleEnrichedLog = (logEntry) => {
+setShared(s => {
+const logs = [...s.dailyLogs];
+const idx = logs.findIndex(l => l.date === logEntry.date);
+if (idx >= 0) {
+const existing = logs[idx];
+logs[idx] = {
+...existing,
+hours: (existing.hours||0) + (logEntry.hours||0),
+questions: (existing.questions||0) + (logEntry.questions||0),
+correct: (existing.correct||0) + (logEntry.correct||0),
+wrong: (existing.wrong||0) + (logEntry.wrong||0),
+reviews: (existing.reviews||0) + (logEntry.reviews||0),
+entries: [...(existing.entries||[]), logEntry],
+};
+} else {
+logs.push({ ...logEntry, entries: [logEntry] });
+logs.sort((a, b) => a.date.localeCompare(b.date));
+}
+const xpGain = Math.round((logEntry.hours||0) * 30 + (logEntry.questions||0) * 1.5 + (logEntry.reviews||0) * 2);
+return { ...s, dailyLogs: logs, xp: s.xp + xpGain };
+});
+window.celebrateLight && window.celebrateLight();
 };
 
 const handleSession = ({ minutes, xp, subjectId }) => {
@@ -539,6 +575,14 @@ const activeSubjects = mode === 'objetiva' ? objState.subjects : discState.subje
 const totalStats = mode === 'objetiva' ? window.DA.getTotalStatsObj(objState.subjects) : window.DA.getTotalStatsDisc(discState.subjects);
 const isSick = shared.petHealth === 'sick';
 
+const TABS = [
+  { id: 'hoje',         label: 'HOJE',    icon: '🏠' },
+  { id: 'edital',       label: 'EDITAL',  icon: '📋' },
+  { id: 'estatisticas', label: 'STATS',   icon: '📊' },
+  { id: 'provas',       label: 'PROVAS',  icon: '🎯' },
+  { id: 'ajustes',      label: 'AJUSTES', icon: '⚙️' },
+];
+
 return (
 <div style={{ position: 'relative', zIndex: 1 }}>
 <div className="aurora" />
@@ -546,101 +590,212 @@ return (
 
   <GlobalHeader shared={shared} mode={mode} setMode={setMode} totalPct={totalStats.percentage} />
 
-  <main style={{ maxWidth: 1400, margin: '0 auto', padding: '20px 24px 120px', position: 'relative' }}>
-    {/* Greeting + Concurso donuts side-by-side */}
-    <div style={{ display: 'grid', gap: 16, gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr)', marginBottom: 16 }} className="greeting-row">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
-          <div>
-            <div className="font-display" style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
-              Boa tarde, <span className="gradient-neon">Concurseiro(a)</span>
+  {/* Sidebar nav (desktop) */}
+  <nav className="nav-sidebar">
+    <div className="nav-sidebar-brand">TOGA ⚖️</div>
+    {TABS.map(tab => (
+      <button key={tab.id} className={`nav-tab ${activeTab === tab.id ? 'nav-tab-active' : ''}`}
+        onClick={() => setActiveTab(tab.id)}>
+        <span className="nav-tab-icon">{tab.icon}</span>
+        <span>{tab.label}</span>
+      </button>
+    ))}
+  </nav>
+
+  {/* Bottom nav (mobile) */}
+  <nav className="nav-bottom">
+    {TABS.map(tab => (
+      <button key={tab.id} className={`nav-tab ${activeTab === tab.id ? 'nav-tab-active' : ''}`}
+        onClick={() => setActiveTab(tab.id)}>
+        <span className="nav-tab-icon">{tab.icon}</span>
+        <span>{tab.label}</span>
+      </button>
+    ))}
+  </nav>
+
+  <main className="toga-main" style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 24px 100px', position: 'relative' }}>
+
+    {/* ── ABA: HOJE ── */}
+    {activeTab === 'hoje' && (
+      <>
+        <style>{`@media (max-width: 900px) { .greeting-row { grid-template-columns: 1fr !important; } }`}</style>
+        <div className="greeting-row" style={{ display: 'grid', gap: 16, gridTemplateColumns: 'minmax(0,1.2fr) minmax(0,1fr)', marginBottom: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <div className="font-display" style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-0.02em' }}>
+                Bom estudo, <span className="gradient-neon">Concurseiro(a)</span>
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 3 }}>
+                {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })} ·
+                {' '}<span style={{ fontWeight: 600, color: mode === 'objetiva' ? 'var(--ciano)' : 'var(--coral)' }}>
+                  Modo {mode === 'objetiva' ? 'Objetiva' : 'Discursiva'}
+                </span>
+              </div>
             </div>
-            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 3 }}>
-              {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })} ·
-              {' '}<span style={{ fontWeight: 600, color: mode === 'objetiva' ? '#00b8d4' : 'var(--coral)', textShadow: `0 0 8px ${mode === 'objetiva' ? '#00d9ff66' : '#E85D5D66'}` }}>
-                Modo {mode === 'objetiva' ? 'Objetiva' : 'Discursiva'}
-              </span>
+            <PetCompanion xp={shared.xp} sick={isSick} dailyLogs={shared.dailyLogs} />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <button className="btn-ghost" onClick={() => setGoalsOpen(true)}
+                style={{ borderColor: 'rgba(91,71,184,0.4)', color: 'var(--tinta)', background: 'rgba(91,71,184,0.06)', fontWeight: 600, fontSize: 12 }}>
+                🎯 Metas
+              </button>
+              <button className="btn-neon" onClick={() => setSessionLogOpen(true)} style={{ fontSize: 12 }}>
+                ✏️ Registrar sessão
+              </button>
+              <button className="btn-ghost" onClick={() => setPomodoroOpen(true)} style={{ fontSize: 12 }}>
+                🛡 Blindado
+              </button>
             </div>
-          </div>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            <button className="btn-ghost" onClick={() => setGoalsOpen(true)}
-              style={{ borderColor: 'rgba(91,71,184,0.4)', color: '#5a1fa0', background: 'rgba(91,71,184,0.06)', fontWeight: 600 }}>
-              <I.target size={13} /> Configurar metas
-            </button>
-            <button className="btn-neon" onClick={() => setPomodoroOpen(true)}>
-              <I.shield size={13} /> Modo Blindado
-            </button>
+            <GavelBar percentage={totalStats.percentage} streak={shared.streak} shields={shared.shields} />
           </div>
         </div>
-        <PetCompanion xp={shared.xp} sick={isSick} dailyLogs={shared.dailyLogs} />
-      </div>
-      <ConcursoDonuts concursos={shared.concursos} setConcursos={setConcursos} />
-    </div>
 
-    <section style={{ marginBottom: 16 }}>
-      <GavelBar percentage={totalStats.percentage} streak={shared.streak} shields={shared.shields} />
-    </section>
+        <section style={{ marginBottom: 16 }}>
+          <MetricsRow shared={shared} setShared={setShared} />
+        </section>
 
-    <section style={{ marginBottom: 16 }}>
-      <MetricsRow shared={shared} setShared={setShared} />
-    </section>
+        <section style={{ marginBottom: 16 }}>
+          <TotalsSection shared={shared} objState={objState} discState={discState} />
+        </section>
 
-    <style>{`@media (max-width: 900px) { .greeting-row { grid-template-columns: 1fr !important; } }`}</style>
+        <section style={{ marginBottom: 16 }}>
+          <InsightsPanel shared={shared} objState={objState} discState={discState} />
+        </section>
 
-    <div className="dual-grid" style={{ display: 'grid', gap: 14, marginBottom: 16 }}>
-      <StudyHeatmap logs={shared.dailyLogs} />
-      <FlashcardHeatmap logs={shared.dailyLogs} />
-    </div>
-
-    <section style={{ marginBottom: 16 }}>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12 }}>
-        <div className="font-display" style={{ fontSize: 18, fontWeight: 700 }}>
-          Matriz do Edital
+        <div className="dual-grid" style={{ display: 'grid', gap: 14, marginBottom: 16 }}>
+          <StudyHeatmap logs={shared.dailyLogs} />
+          <FlashcardHeatmap logs={shared.dailyLogs} />
         </div>
-        <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.1em', fontWeight: 600 }}>
-          · {mode === 'objetiva' ? 'OBJETIVA' : 'DISCURSIVA'}
-        </div>
-        <div style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--text-dim)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
-          cada check vale +5 XP
-        </div>
-      </div>
-      {mode === 'objetiva'
-        ? <SyllabusMatrixObjetiva state={objState} setState={setObjState} onMaster={handleMaster} onCheckXp={handleCheckXp} />
-        : <SyllabusMatrixDiscursiva state={discState} setState={setDiscState} onCheckXp={handleCheckXp} />}
-    </section>
-
-    {activeSubjects.length > 0 && (
-      <section style={{ marginBottom: 16 }}>
-        <SubjectDonuts subjects={activeSubjects} mode={mode} />
-      </section>
+      </>
     )}
 
-    <section style={{ marginBottom: 16 }}>
-      <EditalHeatmap
-        subjects={mode === 'objetiva' ? objState.subjects : discState.subjects}
-        mode={mode} />
-    </section>
+    {/* ── ABA: EDITAL ── */}
+    {activeTab === 'edital' && (
+      <>
+        <section style={{ marginBottom: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+            <div className="font-display" style={{ fontSize: 20, fontWeight: 700 }}>
+              Matriz do Edital
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.1em', fontWeight: 600 }}>
+              · {mode === 'objetiva' ? 'OBJETIVA' : 'DISCURSIVA'}
+            </div>
+            <div style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--text-dim)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+              cada check +5 XP
+            </div>
+          </div>
+          {mode === 'objetiva'
+            ? <SyllabusMatrixObjetiva state={objState} setState={setObjState} onMaster={handleMaster} onCheckXp={handleCheckXp} />
+            : <SyllabusMatrixDiscursiva state={discState} setState={setDiscState} onCheckXp={handleCheckXp} />}
+        </section>
 
-    <section style={{ marginBottom: 16 }}>
-      <TotalsSection shared={shared} objState={objState} discState={discState} />
-    </section>
+        {activeSubjects.length > 0 && (
+          <section style={{ marginBottom: 16 }}>
+            <SubjectDonuts subjects={activeSubjects} mode={mode} />
+          </section>
+        )}
 
-    <section style={{ marginBottom: 16 }}>
-      <BackupSection
-        shared={shared} objState={objState} discState={discState}
-        onRestore={handleRestore} onReset={handleReset} onToast={pushToast} />
-    </section>
+        <section style={{ marginBottom: 16 }}>
+          <EditalHeatmap subjects={mode === 'objetiva' ? objState.subjects : discState.subjects} mode={mode} />
+        </section>
+      </>
+    )}
+
+    {/* ── ABA: ESTATÍSTICAS ── */}
+    {activeTab === 'estatisticas' && (
+      <StatsPage shared={shared} objState={objState} discState={discState} />
+    )}
+
+    {/* ── ABA: PROVAS ── */}
+    {activeTab === 'provas' && (
+      <>
+        <div className="font-display" style={{ fontSize: 20, fontWeight: 700, color: 'var(--petroleo)', marginBottom: 16 }}>
+          Meus Concursos
+        </div>
+        <section style={{ marginBottom: 16 }}>
+          <ConcursoDonuts concursos={shared.concursos} setConcursos={setConcursos} />
+        </section>
+        {shared.concursos && shared.concursos.length > 0 && (
+          <section style={{ marginBottom: 16 }}>
+            <ConcursoTimeline concursos={shared.concursos} onAddConcurso={(c) => setConcursos(cs => [...cs, c])} />
+          </section>
+        )}
+        {(!shared.concursos || shared.concursos.length === 0) && (
+          <div className="glass" style={{ padding: 32, textAlign: 'center', color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: 36, marginBottom: 8 }}>🎯</div>
+            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Nenhum concurso cadastrado</div>
+            <div style={{ fontSize: 13 }}>Use o botão "Adicionar concurso" acima para começar a monitorar suas provas.</div>
+          </div>
+        )}
+      </>
+    )}
+
+    {/* ── ABA: AJUSTES ── */}
+    {activeTab === 'ajustes' && (
+      <>
+        <div className="font-display" style={{ fontSize: 20, fontWeight: 700, color: 'var(--petroleo)', marginBottom: 16 }}>
+          Ajustes
+        </div>
+
+        <section style={{ marginBottom: 14 }}>
+          <div className="glass" style={{ padding: 18 }}>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, marginBottom: 6 }}>METAS PESSOAIS</div>
+            <div className="font-display" style={{ fontSize: 16, fontWeight: 700, marginBottom: 10 }}>Configure suas metas diárias e semanais</div>
+            <button className="btn-neon" onClick={() => setGoalsOpen(true)} style={{ fontSize: 13 }}>
+              🎯 Configurar metas
+            </button>
+          </div>
+        </section>
+
+        <section style={{ marginBottom: 14 }}>
+          <BackupSection shared={shared} objState={objState} discState={discState}
+            onRestore={handleRestore} onReset={handleReset} onToast={pushToast} />
+        </section>
+
+        <section style={{ marginBottom: 14 }}>
+          <div className="glass" style={{ padding: 18 }}>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, marginBottom: 6 }}>TUTORIAL</div>
+            <div className="font-display" style={{ fontSize: 16, fontWeight: 700, marginBottom: 10 }}>Rever o tutorial de boas-vindas</div>
+            <button className="btn-ghost" onClick={() => setShowOnboarding(true)} style={{ fontSize: 13 }}>
+              📖 Ver tutorial novamente
+            </button>
+          </div>
+        </section>
+
+        <section style={{ marginBottom: 14 }}>
+          <div className="glass" style={{ padding: 18 }}>
+            <div style={{ fontSize: 10, letterSpacing: '0.2em', color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, marginBottom: 6 }}>INFORMAÇÕES LEGAIS</div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+              <button className="btn-ghost" onClick={() => setLegalModal('privacy')} style={{ fontSize: 12 }}>
+                🔒 Política de Privacidade
+              </button>
+              <button className="btn-ghost" onClick={() => setLegalModal('terms')} style={{ fontSize: 12 }}>
+                📄 Termos de Uso
+              </button>
+            </div>
+            <div style={{ fontSize: 11, color: 'var(--text-dim)', marginTop: 10, fontFamily: 'JetBrains Mono, monospace' }}>
+              TOGA v1.0 · Todos os dados ficam no seu dispositivo
+            </div>
+          </div>
+        </section>
+      </>
+    )}
+
   </main>
 
   <QuickLogFAB onLog={handleLog} onOpenPomodoro={() => setPomodoroOpen(true)} />
+  <SessionLogModal open={sessionLogOpen} subjects={objState.subjects}
+    onSave={handleEnrichedLog} onClose={() => setSessionLogOpen(false)} />
   <PomodoroModal open={pomodoroOpen} onClose={() => setPomodoroOpen(false)}
     subjects={activeSubjects.length ? activeSubjects : objState.subjects} onCompleteSession={handleSession} />
   <GoalsModal open={goalsOpen} goals={shared.goals} onSave={handleSaveGoals} onClose={() => setGoalsOpen(false)} />
 
-  {/* Evolution modal — full-screen celebration */}
+  {showOnboarding && <OnboardingModal onDone={() => setShowOnboarding(false)} />}
+  {legalModal && <LegalModal type={legalModal} onClose={() => setLegalModal(null)} />}
+
   {evolutionEvent && (
-    <EvolutionModal
-      fromStage={evolutionEvent.from} toStage={evolutionEvent.to}
+    <EvolutionModal fromStage={evolutionEvent.from} toStage={evolutionEvent.to}
       onClose={() => setEvolutionEvent(null)} />
   )}
 
@@ -662,31 +817,30 @@ return (
         const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url; a.download = `defenders-ascent-backup-${new Date().toISOString().slice(0,10)}.json`;
+        a.href = url; a.download = `toga-backup-${new Date().toISOString().slice(0,10)}.json`;
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
         URL.revokeObjectURL(url);
         pushToast('backup_done');
       }} />
     </TweakSection>
-    <TweakSection label="Pet sandbox (testar evolução)">
+    <TweakSection label="Pet sandbox">
       <TweakButton label="+250 XP" onClick={() => setShared(s => ({ ...s, xp: s.xp + 250 }))} />
       <TweakButton label="+1000 XP" onClick={() => setShared(s => ({ ...s, xp: s.xp + 1000 }))} />
-      <TweakButton label="+3000 XP (até adulto)" onClick={() => setShared(s => ({ ...s, xp: s.xp + 3000 }))} />
-      <TweakButton label="Reset Pet (XP=0)" onClick={() => { setShared(s => ({ ...s, xp: 0 })); prevPetStageRef.current = 1; }} />
-      <TweakButton label="Pet final (XP=15k)" onClick={() => setShared(s => ({ ...s, xp: 15000 }))} />
-      <TweakButton label="Forçar pet doente" onClick={() => { setShared(s => ({ ...s, petHealth: 'sick' })); window.playSick && window.playSick(); pushToast('pet_sick'); }} />
-      <TweakButton label="Forçar pet saudável" onClick={() => { setShared(s => ({ ...s, petHealth: 'healthy' })); pushToast('pet_healed'); }} />
+      <TweakButton label="+3000 XP" onClick={() => setShared(s => ({ ...s, xp: s.xp + 3000 }))} />
+      <TweakButton label="Reset XP" onClick={() => { setShared(s => ({ ...s, xp: 0 })); prevPetStageRef.current = 1; }} />
+      <TweakButton label="XP=15k" onClick={() => setShared(s => ({ ...s, xp: 15000 }))} />
+      <TweakButton label="Pet doente" onClick={() => { setShared(s => ({ ...s, petHealth: 'sick' })); pushToast('pet_sick'); }} />
+      <TweakButton label="Pet saudável" onClick={() => { setShared(s => ({ ...s, petHealth: 'healthy' })); pushToast('pet_healed'); }} />
     </TweakSection>
-    <TweakSection label="Celebrações (testar)">
-      <TweakButton label="✨ Confete leve" onClick={() => window.celebrateLight()} />
-      <TweakButton label="🎉 Confete meta" onClick={() => window.celebrateHighEnergy()} />
-      <TweakButton label="🏆 Confete vitória" onClick={() => window.celebrateVictory()} />
-      <TweakButton label="🌟 EVOLUÇÃO!" onClick={() => window.celebrateEvolution()} />
-      <TweakButton label="🛡 Modo Blindado" onClick={() => setPomodoroOpen(true)} />
+    <TweakSection label="Celebrações">
+      <TweakButton label="✨ Leve" onClick={() => window.celebrateLight && window.celebrateLight()} />
+      <TweakButton label="🎉 Meta" onClick={() => window.celebrateHighEnergy && window.celebrateHighEnergy()} />
+      <TweakButton label="🏆 Vitória" onClick={() => window.celebrateVictory && window.celebrateVictory()} />
+      <TweakButton label="🌟 Evolução" onClick={() => window.celebrateEvolution && window.celebrateEvolution()} />
     </TweakSection>
     <TweakSection label="Limpar dados">
-      <TweakButton label="Reset Objetiva" onClick={() => { setObjState(window.DA.INITIAL_OBJETIVA); }} />
-      <TweakButton label="Reset Discursiva" onClick={() => { setDiscState(window.DA.INITIAL_DISCURSIVA); }} />
+      <TweakButton label="Reset Objetiva" onClick={() => setObjState(window.DA.INITIAL_OBJETIVA)} />
+      <TweakButton label="Reset Discursiva" onClick={() => setDiscState(window.DA.INITIAL_DISCURSIVA)} />
     </TweakSection>
   </TweaksPanel>
 

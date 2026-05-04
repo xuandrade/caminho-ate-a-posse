@@ -478,38 +478,62 @@ html, body {
 }
 
 /* ── Navigation (Bloco 4 — skeleton) ── */
+/* Sidebar desktop / bottom mobile */
 .nav-sidebar {
   position: fixed; left: 0; top: 0; bottom: 0;
   width: 220px;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(18px);
-  border-right: 1px solid rgba(42,45,58,0.07);
-  display: flex; flex-direction: column;
-  padding: 20px 12px;
+  border-right: 1px solid rgba(42,45,58,0.08);
+  display: none; flex-direction: column;
+  padding: 24px 12px 20px;
   gap: 4px;
   z-index: 45;
 }
+.nav-sidebar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--petroleo);
+  padding: 0 10px 16px;
+  border-bottom: 1px solid rgba(42,45,58,0.07);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
 .nav-bottom {
   position: fixed; left: 0; right: 0; bottom: 0;
-  height: 64px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(18px);
-  border-top: 1px solid rgba(42,45,58,0.07);
+  height: 62px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(42,45,58,0.09);
   display: flex; align-items: center; justify-content: space-around;
   z-index: 45;
+  padding: 0 4px;
 }
 .nav-tab {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px; border-radius: 10px;
-  color: var(--ardosia); font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 10px;
+  color: var(--ardosia); font-size: 12px; font-weight: 600;
   cursor: pointer; border: none; background: transparent;
-  transition: all 150ms ease; text-decoration: none;
+  transition: all 150ms ease;
 }
-.nav-tab:hover { background: rgba(0,184,212,0.06); color: var(--petroleo); }
-.nav-tab-active {
-  background: rgba(11,61,92,0.08);
-  color: var(--petroleo);
-  box-shadow: inset 2px 0 0 var(--ciano);
+.nav-tab-icon { font-size: 18px; line-height: 1; }
+.nav-tab:hover { background: rgba(0,184,212,0.07); color: var(--petroleo); }
+.nav-tab-active { color: var(--petroleo); }
+/* sidebar: left accent line */
+.nav-sidebar .nav-tab-active { background: rgba(11,61,92,0.07); box-shadow: inset 3px 0 0 var(--ciano); }
+/* bottom: top accent + icon scale */
+.nav-bottom .nav-tab-active .nav-tab-icon { transform: scale(1.2); }
+.nav-bottom .nav-tab { flex-direction: column; gap: 2px; padding: 6px 8px; font-size: 10px; min-width: 52px; justify-content: center; }
+.nav-bottom .nav-tab-active { background: rgba(11,61,92,0.06); border-radius: 10px; }
+
+/* Main layout: sidebar offset on desktop */
+@media (min-width: 820px) {
+  .nav-sidebar { display: flex; }
+  .nav-bottom  { display: none; }
+  .toga-main   { margin-left: 220px; }
+}
+@media (max-width: 819px) {
+  .toga-main   { padding-bottom: 80px !important; }
 }
 
 /* ── AEGIS pet animations ── */

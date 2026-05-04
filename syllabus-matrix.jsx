@@ -1,6 +1,6 @@
 // SyllabusMatrix — Objetiva mode (5 cols) — editable subject weights
 const FLAGS_OBJ = ['lei', 'doutrina', 'juris', 'questoes', 'revisao'];
-const FLAG_LABELS_OBJ = { lei: 'Lei', doutrina: 'Resumo', juris: 'Juris', questoes: 'Questões', revisao: 'Revisão' };
+const FLAG_LABELS_OBJ = { lei: 'Lei', doutrina: 'Teoria/Resumos', juris: 'Juris', questoes: 'Questões', revisao: 'Revisão' };
 
 function SyllabusMatrixObjetiva({ state, setState, onMaster, onCheckXp }) {
 const toggle = (sId, tId, flag) => {

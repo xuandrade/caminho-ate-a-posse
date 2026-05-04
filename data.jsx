@@ -7,20 +7,17 @@ const INITIAL_SUBJECTS_OBJ = [
     "shortName": "Const",
     "weight": 1,
     "topics": [
-      { "id": "constitucional-4",           "name": "Controle de Constitucionalidade",        "lei": false, "doutrina": false, "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "constitucional-1",           "name": "Direitos e Garantias Fundamentais",      "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "constitucional-1775487057252","name": "Educação",                              "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "constitucional-8",           "name": "Ordem Social",                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "constitucional-1775484998989","name": "Saúde",                                 "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "constitucional-7",           "name": "Constitucionalismo",                     "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": true  },
-      { "id": "constitucional-0",           "name": "NFPSS",                                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "constitucional-2",           "name": "Organização do Estado",                  "lei": true,  "doutrina": false, "juris": false, "questoes": true,  "revisao": false },
-      { "id": "constitucional-3",           "name": "Organização dos Poderes",                "lei": true,  "doutrina": false, "juris": false, "questoes": true,  "revisao": false },
-      { "id": "constitucional-5",           "name": "Defesa do Estado e Instituições Democráticas", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "constitucional-1774895898245","name": "Direitos Políticos",                   "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "constitucional-9",           "name": "Remédios Constitucionais",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "constitucional-6",           "name": "Jurisprudência 2026",                    "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "constitucional-1775484884182","name": "Hermenêutica Constitucional",           "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false }
+      { "id": "constitucional-1",  "name": "Direitos e Garantias Fundamentais",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-2",  "name": "Controle de Constitucionalidade",              "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-3",  "name": "Organização dos Poderes",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-4",  "name": "Processo Legislativo",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-5",  "name": "Princípios Fundamentais",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-6",  "name": "Organização do Estado e Federação",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-7",  "name": "Poder Judiciário e Funções Essenciais",        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-8",  "name": "Direitos Sociais",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-9",  "name": "Ordem Social (saúde, educação, previdência)",  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-10", "name": "Tributação e Orçamento (CF)",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "constitucional-11", "name": "Ordem Econômica e Financeira",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
@@ -29,18 +26,18 @@ const INITIAL_SUBJECTS_OBJ = [
     "shortName": "Admin",
     "weight": 1,
     "topics": [
-      { "id": "administrativo-0",           "name": "Poderes da Administração Pública",       "lei": true,  "doutrina": true,  "juris": false, "questoes": true,  "revisao": false },
-      { "id": "administrativo-4",           "name": "Servidores Públicos",                    "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "administrativo-2",           "name": "Atos Administrativos",                   "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-8",           "name": "Intervenção do Estado na Propriedade",   "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "administrativo-5",           "name": "Responsabilidade Civil do Estado",       "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "administrativo-1775744889959","name": "Improbidade administrativa",            "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "administrativo-6",           "name": "Serviços Públicos",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-1",           "name": "Organização Administrativa",              "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-3",           "name": "Licitações e Contratos",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-7",           "name": "Bens Públicos",                          "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-9",           "name": "Processo Administrativo",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "administrativo-1774898514584","name": "Jurisprudência 2026",                   "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "administrativo-1",  "name": "Atos Administrativos",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-2",  "name": "Licitações e Contratos Administrativos",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-3",  "name": "Responsabilidade Civil do Estado",              "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-4",  "name": "Poderes Administrativos",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-5",  "name": "Princípios do Direito Administrativo",          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-6",  "name": "Agentes Públicos e Regime Jurídico",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-7",  "name": "Serviços Públicos",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-8",  "name": "Bens Públicos",                                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-9",  "name": "Processo Administrativo",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-10", "name": "Improbidade Administrativa",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-11", "name": "Controle da Administração",                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "administrativo-12", "name": "Organização Administrativa",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
@@ -49,39 +46,36 @@ const INITIAL_SUBJECTS_OBJ = [
     "shortName": "Civil",
     "weight": 1,
     "topics": [
-      { "id": "civil-8",           "name": "Família",                     "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "civil-9",           "name": "Sucessões",                   "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "civil-3",           "name": "EPCD",                        "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "civil-7",           "name": "Direitos Reais",              "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "civil-0",           "name": "LINDB",                       "lei": true,  "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-4",           "name": "Obrigações",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-5",           "name": "Contratos",                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-6",           "name": "Responsabilidade Civil",      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-1",           "name": "Pessoas Naturais e Jurídicas","lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-2",           "name": "Bens",                        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "civil-1774898301503","name": "Jurisprudência 2026",        "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "civil-1",  "name": "Responsabilidade Civil",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-2",  "name": "Contratos em Espécie",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-3",  "name": "Obrigações",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-4",  "name": "Direito de Família",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-5",  "name": "Negócio Jurídico",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-6",  "name": "Direito das Sucessões",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-7",  "name": "Direitos Reais e Propriedade",          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-8",  "name": "Posse",                                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-9",  "name": "Pessoas Físicas e Jurídicas",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-10", "name": "Prescrição e Decadência",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "civil-11", "name": "Contratos em Geral (teoria geral)",     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "processo-civil",
+    "id": "proc-civil",
     "name": "Direito Processual Civil",
-    "shortName": "P. Civil",
+    "shortName": "ProcCiv",
     "weight": 1,
     "topics": [
-      { "id": "processo-civil-0",           "name": "Normas Fundamentais do CPC",     "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-civil-1",           "name": "Jurisdição e Competência",       "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-2",           "name": "Sujeitos do Processo",           "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-6",           "name": "Cumprimento de Sentença",        "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-civil-7",           "name": "Execução",                       "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-civil-3",           "name": "Atos Processuais",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-4",           "name": "Tutela Provisória",              "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-8",           "name": "Recursos",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-9",           "name": "Incidentes Processuais",         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "processo-civil-1774897483674","name": "Honorários Advocatícios",       "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-5",           "name": "Procedimento Comum",             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-1774897493927","name": "Jurisprudência 2026 (até 11/04)","lei": true, "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "processo-civil-1774897501453","name": "Súmulas",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-civil-1774898111551","name": "Coisa Julgada",                 "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false }
+      { "id": "proc-civil-1",  "name": "Recursos (CPC)",                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-2",  "name": "Tutelas Provisórias",                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-3",  "name": "Processo de Conhecimento",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-4",  "name": "Execução Civil",                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-5",  "name": "Competência",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-6",  "name": "Princípios e Normas Fundamentais (CPC)",  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-7",  "name": "Provas",                                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-8",  "name": "Partes, Procuradores e Litisconsórcio",   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-9",  "name": "Sentença e Coisa Julgada",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-10", "name": "Procedimentos Especiais",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-civil-11", "name": "Cumprimento de Sentença",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
@@ -90,260 +84,429 @@ const INITIAL_SUBJECTS_OBJ = [
     "shortName": "Penal",
     "weight": 1,
     "topics": [
-      { "id": "penal-0",           "name": "Princípios do Direito Penal",       "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "penal-8",           "name": "Crimes contra o Patrimônio",        "lei": true,  "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "penal-7",           "name": "Crimes contra a Pessoa",            "lei": true,  "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "penal-1774898559268","name": "Lei de Drogas",                    "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "penal-1",           "name": "Aplicação da Lei Penal",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-2",           "name": "Teoria do Crime",                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-3",           "name": "Tipicidade",                        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-4",           "name": "Ilicitude e Culpabilidade",         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-5",           "name": "Concurso de Crimes e Pessoas",      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-6",           "name": "Penas e Medidas de Segurança",      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "penal-9",           "name": "Prescrição",                        "lei": false, "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "penal-1775998340824","name": "Lei de Crimes Raciais",            "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": true  },
-      { "id": "penal-1775484908784","name": "Lei anti-facção",                  "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": true  },
-      { "id": "penal-1774898236785","name": "Jurisprudência 2026 (ATÉ 12/04)", "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "penal-1776005386026","name": "Jurisprudência 2025",              "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "penal-1",  "name": "Teoria do Crime (Tipicidade, Ilicitude, Culpabilidade)", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-2",  "name": "Crimes contra a Pessoa",                                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-3",  "name": "Penas (espécies e aplicação)",                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-4",  "name": "Crimes contra o Patrimônio",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-5",  "name": "Crimes contra a Administração Pública",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-6",  "name": "Lei Maria da Penha / Violência Doméstica",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-7",  "name": "Crimes contra a Dignidade Sexual",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-8",  "name": "Extinção da Punibilidade",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-9",  "name": "Aplicação da Lei Penal (tempo, espaço, pessoa)",         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "penal-10", "name": "Legislação Penal Especial (tráfico, armas, etc.)",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "processo-penal",
+    "id": "proc-penal",
     "name": "Direito Processual Penal",
-    "shortName": "P. Penal",
+    "shortName": "ProcPen",
     "weight": 1,
     "topics": [
-      { "id": "processo-penal-5",           "name": "Prisão e Liberdade Provisória",                    "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-9",           "name": "Tribunal do Júri",                                "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-4",           "name": "Provas",                                          "lei": true,  "doutrina": false, "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-0",           "name": "ANPP",                                            "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-1",           "name": "Protocolos de julgamento racial e de gênero",     "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-2",           "name": "Ação Penal",                                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-penal-3",           "name": "Competência",                                     "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "processo-penal-6",           "name": "Procedimentos",                                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-penal-7",           "name": "Recursos",                                        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-penal-8",           "name": "Habeas Corpus",                                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "processo-penal-1774898466241","name": "Novidades Legislativas",                         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "processo-penal-1774898480409","name": "Jurisprudência 2026 (até 13/04)",                "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "processo-penal-1776257920974","name": "Lei Maria da Penha",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": true  }
+      { "id": "proc-penal-1",  "name": "Prisão, Medidas Cautelares e Liberdade Provisória", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-2",  "name": "Recursos e Ações Autônomas no CPP",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-3",  "name": "Ação Penal e Condições da Ação",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-4",  "name": "Provas (sistema, tipos, produção)",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-5",  "name": "Inquérito Policial",                                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-6",  "name": "Competência Penal",                                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-7",  "name": "Procedimentos (comum ordinário, sumário, especial)", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-8",  "name": "Nulidades",                                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-9",  "name": "Habeas Corpus e Mandado de Segurança Penal",         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "proc-penal-10", "name": "Execução Penal (LEP)",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "direitos-humanos",
+    "id": "dh",
     "name": "Direitos Humanos",
     "shortName": "DH",
     "weight": 1,
     "topics": [
-      { "id": "direitos-humanos-1774896057150","name": "Casos da Corte IDH vs Brasil",                "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-1774896122827","name": "Convenção Interamericana contra o Racismo",   "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-7",           "name": "Povos Indígenas: Conv. 169 OIT / Res. CNJ",   "lei": false, "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direitos-humanos-6",           "name": "Pessoas em Situação de Rua",                  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direitos-humanos-1774896276427","name": "LGBT+ | Princípios de Yogyakarta",            "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-4",           "name": "Agenda 2030",                                  "lei": true,  "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-1774896107073","name": "Direitos dos Povos Tradicionais",             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-1774896067223","name": "Casos Internacionais da Corte IDH",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-0",           "name": "Teoria Geral dos Direitos Humanos",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-1",           "name": "Regras de Mandela",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-2",           "name": "Sistema Global (ONU)",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-3",           "name": "Sistema Interamericano (OEA)",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direitos-humanos-5",           "name": "Tratados Internacionais no Brasil",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
+      { "id": "dh-1",  "name": "Sistema Interamericano de Direitos Humanos",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-2",  "name": "Convenção Americana sobre Direitos Humanos (CADH)",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-3",  "name": "Sistema Universal de DH (ONU)",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-4",  "name": "Pacto Internacional de Direitos Civis e Políticos",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-5",  "name": "Declaração Universal dos Direitos Humanos",                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-6",  "name": "Mecanismos de Proteção Internacional",                        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-7",  "name": "Grupos Vulneráveis (mulher, criança, migrante, preso)",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-8",  "name": "Corte e Comissão Interamericana",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-9",  "name": "Responsabilidade Internacional do Estado",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dh-10", "name": "Direitos Econômicos, Sociais e Culturais (DESC)",             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
+    ]
+  },
+  {
+    "id": "tributario",
+    "name": "Direito Tributário",
+    "shortName": "Trib",
+    "weight": 1,
+    "topics": [
+      { "id": "tributario-1", "name": "Obrigação e Crédito Tributário",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-2", "name": "Impostos em Espécie (IR, IPTU, ICMS, ISS, etc.)",     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-3", "name": "Princípios Constitucionais Tributários",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-4", "name": "Competência Tributária",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-5", "name": "Exclusão, Suspensão e Extinção do Crédito",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-6", "name": "Responsabilidade Tributária",                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-7", "name": "Execução Fiscal",                                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-8", "name": "Legislação Tributária (fontes, interpretação)",        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "tributario-9", "name": "Simples Nacional e Regimes Especiais",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
+    ]
+  },
+  {
+    "id": "consumidor",
+    "name": "Direito do Consumidor",
+    "shortName": "CDC",
+    "weight": 1,
+    "topics": [
+      { "id": "consumidor-1", "name": "Responsabilidade pelo Fato e Vício do Produto/Serviço", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-2", "name": "Práticas Comerciais Abusivas",                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-3", "name": "Proteção Contratual (cláusulas abusivas)",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-4", "name": "Direitos Básicos do Consumidor",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-5", "name": "Conceitos Fundamentais (fornecedor, consumidor, prod.)", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-6", "name": "Defesa do Consumidor em Juízo",                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-7", "name": "Publicidade",                                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-8", "name": "Cadastros de Inadimplentes e Bancos de Dados",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "consumidor-9", "name": "Desconsideração da Personalidade Jurídica",              "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
     "id": "eca",
-    "name": "Direito da Criança e do Adolescente (ECA)",
+    "name": "Estatuto da Criança e do Adolescente",
     "shortName": "ECA",
     "weight": 1,
     "topics": [
-      { "id": "eca-4",           "name": "Medidas Socioeducativas",     "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "eca-1776029069926","name": "SINASE",                     "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "eca-1",           "name": "Direitos Fundamentais da Criança","lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "eca-2",           "name": "Medidas de Proteção",         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "eca-5",           "name": "Conselho Tutelar",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "eca-6",           "name": "Adoção e Guarda",             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "eca-7",           "name": "Crimes e Infrações Administrativas","lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "eca-1774898602691","name": "Jurisprudência 2026",        "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "eca-1776029778227","name": "Jurisprudência 2025",        "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "eca-3",           "name": "Jurisprudência 2024",         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "eca-0",           "name": "Jurisprudência 2023",         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "eca-1",  "name": "Ato Infracional e Medidas Socioeducativas",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-2",  "name": "Direitos Fundamentais da Criança e Adolescente",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-3",  "name": "Família Natural, Extensa e Substituta",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-4",  "name": "Adoção",                                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-5",  "name": "Conselho Tutelar",                                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-6",  "name": "Violência contra Criança e Adolescente",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-7",  "name": "Medidas de Proteção",                                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-8",  "name": "Internação",                                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-9",  "name": "Justiça da Infância e Juventude",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "eca-10", "name": "SINASE (Sistema Socioeducativo)",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "execues-penais-1774893363800",
-    "name": "Execuções Penais",
-    "shortName": "Exec. Penal",
+    "id": "empresarial",
+    "name": "Direito Empresarial",
+    "shortName": "Empres",
     "weight": 1,
     "topics": [
-      { "id": "execues-penais-1774893363800-1774893383783","name": "Progressão de Regime",              "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774893387922","name": "RDD",                               "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1776255000813","name": "Res.CNJ — antimanicomial/índigenas","lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "execues-penais-1774893363800-1774893393976","name": "Direitos dos apenados",             "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774897551926","name": "Faltas Disciplinares",              "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774897561904","name": "Direitos da Mulher Presa",          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774897574396","name": "Livramento Condicional",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774897582894","name": "Regras de Mandela / Bangkok",       "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "execues-penais-1774893363800-1774897599042","name": "Jurisprudência 2026",               "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "execues-penais-1774893363800-1774897616783","name": "Súmulas",                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "execues-penais-1774893363800-1774898436762","name": "Novidades Legislativas até 2025",   "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "empresarial-1", "name": "Títulos de Crédito (cheque, duplicata, nota prom., letra)", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-2", "name": "Falência e Recuperação Judicial",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-3", "name": "Sociedades Empresariais (Ltda., S.A.)",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-4", "name": "Contratos Empresariais",                                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-5", "name": "Estabelecimento e Registro Empresarial",                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-6", "name": "Responsabilidade dos Sócios",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-7", "name": "Propriedade Industrial (marcas, patentes)",                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "empresarial-8", "name": "Nome Empresarial",                                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "jurisprudncia-1774893149149",
-    "name": "Criminologia",
-    "shortName": "Criminol.",
-    "weight": 1,
-    "topics": [
-      { "id": "jurisprudncia-1774893149149-1774893194867","name": "Escolas Criminológicas",  "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": true  },
-      { "id": "jurisprudncia-1774893149149-1774896962474","name": "NFPSS",                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "jurisprudncia-1774893149149-1776030534518","name": "Criminologia Feminista",  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
-    ]
-  },
-  {
-    "id": "direito-urbanstico-1774896525053",
-    "name": "Direito Urbanístico",
-    "shortName": "Urbanístico",
-    "weight": 1,
-    "topics": [
-      { "id": "direito-urbanstico-1774896525053-1774896534601","name": "REURB",              "lei": true,  "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direito-urbanstico-1774896525053-1774896543059","name": "Estatuto da Cidade", "lei": true,  "doutrina": false, "juris": false, "questoes": false, "revisao": false }
-    ]
-  },
-  {
-    "id": "direito-ambiental-1774896446831",
+    "id": "ambiental",
     "name": "Direito Ambiental",
-    "shortName": "Ambiental",
+    "shortName": "Amb",
     "weight": 1,
     "topics": [
-      { "id": "direito-ambiental-1774896446831-1774896471400","name": "Princípios do Direito Ambiental",   "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "direito-ambiental-1774896446831-1774896496146","name": "Licenciamento",                     "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "direito-ambiental-1774896446831-1774901554341","name": "Responsabilidade Civil Ambiental",  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "direito-ambiental-1774896446831-1774901573924","name": "Política Nacional do Meio Ambiente","lei": false, "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "direito-ambiental-1774896446831-1774902003706","name": "Jurisprudência 2026 e 2025",        "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "ambiental-1", "name": "Política Nacional do Meio Ambiente (Lei 6938/81)",   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-2", "name": "Responsabilidade Ambiental (civil, penal, adm.)",    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-3", "name": "Código Florestal (Lei 12651/12)",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-4", "name": "Licenciamento Ambiental",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-5", "name": "Crimes Ambientais (Lei 9605/98)",                    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-6", "name": "Unidades de Conservação (SNUC)",                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-7", "name": "Recursos Hídricos",                                  "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "ambiental-8", "name": "Dano Ambiental e Reparação",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "institucional",
-    "name": "Princípios Institucionais da DPE",
-    "shortName": "DPE",
+    "id": "idoso-pcd",
+    "name": "Estatuto do Idoso e da PCD",
+    "shortName": "Idoso/PCD",
     "weight": 1,
     "topics": [
-      { "id": "institucional-0",           "name": "Defensoria Pública na CF/88",                         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-1774897423069","name": "Defensoria na Constituição de SC",                   "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-1",           "name": "LC 80/94 – Lei Orgânica Nacional",                    "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "institucional-2",           "name": "LC Estadual da DPE-SC",                               "lei": true,  "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "institucional-3",           "name": "Princípios Institucionais",                           "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-4",           "name": "Autonomia e Independência Funcional",                 "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-5",           "name": "Assistência Jurídica Integral e Gratuita",           "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-6",           "name": "Atuação Extrajudicial",                               "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-7",           "name": "Legitimidade para Ações Coletivas",                  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-1776437549541","name": "Ondas de acesso à justiça",                         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "institucional-1776439296020","name": "Jurisprudência completa até 17/04/2026",            "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  }
+      { "id": "idoso-pcd-1", "name": "Estatuto da Pessoa com Deficiência (LBI — Lei 13146/15)", "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-2", "name": "Direitos Fundamentais do Idoso (Lei 10741/03)",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-3", "name": "Prioridade no Atendimento",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-4", "name": "Violência contra o Idoso",                                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-5", "name": "Inclusão da Pessoa com Deficiência",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-6", "name": "Acessibilidade e Mobilidade",                             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-7", "name": "Benefícios Assistenciais (BPC/LOAS)",                     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "idoso-pcd-8", "name": "Trabalho da Pessoa com Deficiência",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "direito-tributrio-1774896657783",
-    "name": "Direito Tributário",
-    "shortName": "Tributário",
+    "id": "dp-institucional",
+    "name": "Princípios Institucionais da Defensoria Pública",
+    "shortName": "DP-Inst",
     "weight": 1,
     "topics": [
-      { "id": "direito-tributrio-1774896657783-1774896670912","name": "Novidades da Reforma Tributária",         "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774896696849","name": "Impostos em espécie",                    "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774896709487","name": "Execução Fiscal",                        "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774897301948","name": "Imunidades Tributárias",                 "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774897317594","name": "Suspensão e Extinção do Crédito",        "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774897333606","name": "Princípios Tributários",                 "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false },
-      { "id": "direito-tributrio-1774896657783-1774897349101","name": "Jurisprudência mais importante",         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direito-tributrio-1774896657783-1774897352555","name": "Súmulas Vinculantes",                    "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direito-tributrio-1774896657783-1776172761813","name": "Crédito Tributário",                     "lei": false, "doutrina": true,  "juris": true,  "questoes": false, "revisao": false }
+      { "id": "dp-institucional-1", "name": "Lei Complementar 80/94 (LONDP)",                        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-2", "name": "Autonomia Funcional, Administrativa e Orçamentária",     "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-3", "name": "Garantias e Prerrogativas dos Defensores",               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-4", "name": "Atribuições da Defensoria Pública",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-5", "name": "Assistência Jurídica Gratuita e Acesso à Justiça",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-6", "name": "Organização e Estrutura da DP",                          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-7", "name": "Carreira do Defensor Público",                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-8", "name": "Corregedoria e Fiscalização",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "dp-institucional-9", "name": "Atuação Coletiva da Defensoria Pública",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "direito-do-consumidor-1774896878011",
-    "name": "Direito do Consumidor",
-    "shortName": "Consumidor",
+    "id": "filosofia",
+    "name": "Filosofia e Sociologia do Direito",
+    "shortName": "FiloSoc",
     "weight": 1,
     "topics": [
-      { "id": "direito-do-consumidor-1774896878011-1774896891571","name": "Jurisprudência de 2026",  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direito-do-consumidor-1774896878011-1774896906415","name": "Jurisprudência de 2025",  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "direito-do-consumidor-1774896878011-1774896918039","name": "Superendividamento",      "lei": false, "doutrina": true,  "juris": false, "questoes": false, "revisao": false },
-      { "id": "direito-do-consumidor-1774896878011-1774896926047","name": "Plano de Saúde",          "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
-      { "id": "direito-do-consumidor-1774896878011-1774896934700","name": "Bancos e Serviços Financeiros","lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false }
+      { "id": "filosofia-1",  "name": "Hermenêutica Jurídica e Interpretação",           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-2",  "name": "Teoria Geral do Direito",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-3",  "name": "Fontes do Direito",                               "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-4",  "name": "Direito e Moral (relações)",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-5",  "name": "Teoria da Argumentação Jurídica",                 "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-6",  "name": "Justiça e Equidade (Rawls, Dworkin)",             "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-7",  "name": "Positivismo Jurídico e Escola Histórica",         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-8",  "name": "Sociologia do Conflito e Acesso à Justiça",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-9",  "name": "Crítica ao Direito (Escola de Frankfurt)",        "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "filosofia-10", "name": "Funções Sociais do Direito",                      "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   },
   {
-    "id": "direitos-difusos-e-coletivos-1774896996519",
-    "name": "Direitos Difusos e Coletivos",
-    "shortName": "Difusos",
+    "id": "portugues",
+    "name": "Língua Portuguesa",
+    "shortName": "Port",
     "weight": 1,
     "topics": [
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897096520","name": "Teoria Geral das Ações Coletivas","lei": true,"doutrina": true,"juris": true,"questoes": false,"revisao": false },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897012807","name": "Ação Civil Pública",            "lei": true,"doutrina": false,"juris": false,"questoes": false,"revisao": true  },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897023338","name": "Ação Popular",                  "lei": true,"doutrina": true,"juris": false,"questoes": false,"revisao": true  },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897037128","name": "Mandado de Injunção Coletivo",  "lei": true,"doutrina": true,"juris": false,"questoes": false,"revisao": true  },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897044394","name": "Mandado de Segurança Coletivo", "lei": true,"doutrina": true,"juris": false,"questoes": false,"revisao": true  },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897056702","name": "Saúde",                         "lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897065865","name": "Moradia",                       "lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897075243","name": "População em Situação de Rua",  "lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774897088255","name": "Teoria Geral de tutela coletiva","lei": false,"doutrina": false,"juris": false,"questoes": false,"revisao": false },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774898910808","name": "Jurisprudência 2026",           "lei": true,"doutrina": true,"juris": true,"questoes": true,"revisao": true  },
-      { "id": "direitos-difusos-e-coletivos-1774896996519-1774898921472","name": "Jurisprudência 2025",           "lei": true,"doutrina": true,"juris": true,"questoes": true,"revisao": true  }
-    ]
-  },
-  {
-    "id": "portugus-1774897123124",
-    "name": "Português",
-    "shortName": "Português",
-    "weight": 1,
-    "topics": [
-      { "id": "portugus-1774897123124-1774897138573","name": "Interpretação de Texto",      "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "portugus-1774897123124-1774897152455","name": "Coesão e Coerência",          "lei": false, "doutrina": false, "juris": false, "questoes": true,  "revisao": false },
-      { "id": "portugus-1774897123124-1774897159492","name": "Sintaxe",                     "lei": false, "doutrina": true,  "juris": false, "questoes": true,  "revisao": true  },
-      { "id": "portugus-1774897123124-1774897163711","name": "Morfologia",                  "lei": false, "doutrina": false, "juris": false, "questoes": true,  "revisao": false },
-      { "id": "portugus-1774897123124-1774897174633","name": "Regência e Concordância",     "lei": false, "doutrina": true,  "juris": false, "questoes": true,  "revisao": true  },
-      { "id": "portugus-1774897123124-1774897204791","name": "Conjunções",                  "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "portugus-1774897123124-1775503321687","name": "Crase",                       "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "portugus-1774897123124-1775503326061","name": "Hífen",                       "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "portugus-1774897123124-1775505517568","name": "Acentuação",                  "lei": true,  "doutrina": true,  "juris": true,  "questoes": false, "revisao": false }
-    ]
-  },
-  {
-    "id": "histria-de-santa-catarina-1774897254382",
-    "name": "História de Santa Catarina",
-    "shortName": "Hist. SC",
-    "weight": 1,
-    "topics": [
-      { "id": "histria-de-santa-catarina-1774897254382-1774971968599","name": "História","lei": true,"doutrina": true,"juris": true,"questoes": true,"revisao": false }
-    ]
-  },
-  {
-    "id": "filosofia-1774897845219",
-    "name": "Filosofia",
-    "shortName": "Filosofia",
-    "weight": 1,
-    "topics": [
-      { "id": "filosofia-1774897845219-1774897859464","name": "Mulheres, raça e classe",     "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "filosofia-1774897845219-1774897872569","name": "Necropolítica",               "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": true  },
-      { "id": "filosofia-1774897845219-1774897987118","name": "Crise da Democracia",         "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "filosofia-1774897845219-1774897998181","name": "Foucault",                    "lei": true,  "doutrina": true,  "juris": true,  "questoes": true,  "revisao": false },
-      { "id": "filosofia-1774897845219-1774898010140","name": "Teorias críticas e pós-positivismo","lei": true,"doutrina": true,"juris": true,"questoes": true,"revisao": false }
+      { "id": "portugues-1",  "name": "Interpretação e Compreensão de Texto",            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-2",  "name": "Concordância Verbal e Nominal",                   "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-3",  "name": "Regência Verbal e Nominal",                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-4",  "name": "Crase",                                           "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-5",  "name": "Sintaxe (coordenação, subordinação, período)",    "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-6",  "name": "Morfologia (classes de palavras, flexões)",       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-7",  "name": "Ortografia e Acentuação",                         "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-8",  "name": "Pontuação",                                       "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-9",  "name": "Colocação Pronominal",                            "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false },
+      { "id": "portugues-10", "name": "Semântica e Figuras de Linguagem",                "lei": false, "doutrina": false, "juris": false, "questoes": false, "revisao": false }
     ]
   }
 ];
 
 const INITIAL_SUBJECTS_DISC = [
-  {
-    "id": "discursiva-1777555868162",
-    "name": "Discursiva",
-    "weight": 1,
+  { "id": "d-constitucional",   "name": "Direito Constitucional",                            "weight": 1, "simulados": [],
     "topics": [
-      { "id": "discursiva-1777555868162-1777555953221","name": "Aulas de Prática Cível",        "estudado": false, "grifado": false, "questoes": false },
-      { "id": "discursiva-1777555868162-1777555960141","name": "Aulas de Prática Penal",        "estudado": false, "grifado": false, "questoes": false },
-      { "id": "discursiva-1777555868162-1777556000501","name": "Caderno de Teses Cíveis",       "estudado": false, "grifado": false, "questoes": false },
-      { "id": "discursiva-1777555868162-1777556016196","name": "Caderno de Esqueletos Penais",  "estudado": false, "grifado": false, "questoes": false },
-      { "id": "discursiva-1777555868162-1777561135724","name": "Caderno de Teses Penal",        "estudado": false, "grifado": false, "questoes": false },
-      { "id": "discursiva-1777555868162-1777561143424","name": "Caderno de Palavras Chave",     "estudado": false, "grifado": false, "questoes": false }
-    ],
-    "simulados": []
+      { "id": "d-constitucional-1",  "name": "Direitos e Garantias Fundamentais",            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-2",  "name": "Controle de Constitucionalidade",               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-3",  "name": "Organização dos Poderes",                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-4",  "name": "Processo Legislativo",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-5",  "name": "Princípios Fundamentais",                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-6",  "name": "Organização do Estado e Federação",             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-7",  "name": "Poder Judiciário e Funções Essenciais",         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-8",  "name": "Direitos Sociais",                              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-9",  "name": "Ordem Social",                                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-10", "name": "Tributação e Orçamento (CF)",                   "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-constitucional-11", "name": "Ordem Econômica e Financeira",                  "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-administrativo",   "name": "Direito Administrativo",                            "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-administrativo-1",  "name": "Atos Administrativos",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-2",  "name": "Licitações e Contratos Administrativos",        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-3",  "name": "Responsabilidade Civil do Estado",               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-4",  "name": "Poderes Administrativos",                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-5",  "name": "Princípios do Direito Administrativo",           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-6",  "name": "Agentes Públicos e Regime Jurídico",             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-7",  "name": "Serviços Públicos",                              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-8",  "name": "Bens Públicos",                                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-9",  "name": "Processo Administrativo",                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-10", "name": "Improbidade Administrativa",                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-11", "name": "Controle da Administração",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-administrativo-12", "name": "Organização Administrativa",                     "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-civil",            "name": "Direito Civil",                                     "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-civil-1",  "name": "Responsabilidade Civil",                                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-2",  "name": "Contratos em Espécie",                                   "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-3",  "name": "Obrigações",                                             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-4",  "name": "Direito de Família",                                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-5",  "name": "Negócio Jurídico",                                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-6",  "name": "Direito das Sucessões",                                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-7",  "name": "Direitos Reais e Propriedade",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-8",  "name": "Posse",                                                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-9",  "name": "Pessoas Físicas e Jurídicas",                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-10", "name": "Prescrição e Decadência",                                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-civil-11", "name": "Contratos em Geral (teoria geral)",                      "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-proc-civil",       "name": "Direito Processual Civil",                          "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-proc-civil-1",  "name": "Recursos (CPC)",                                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-2",  "name": "Tutelas Provisórias",                               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-3",  "name": "Processo de Conhecimento",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-4",  "name": "Execução Civil",                                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-5",  "name": "Competência",                                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-6",  "name": "Princípios e Normas Fundamentais (CPC)",            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-7",  "name": "Provas",                                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-8",  "name": "Partes, Procuradores e Litisconsórcio",             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-9",  "name": "Sentença e Coisa Julgada",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-10", "name": "Procedimentos Especiais",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-civil-11", "name": "Cumprimento de Sentença",                           "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-penal",            "name": "Direito Penal",                                     "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-penal-1",  "name": "Teoria do Crime",                                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-2",  "name": "Crimes contra a Pessoa",                                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-3",  "name": "Penas (espécies e aplicação)",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-4",  "name": "Crimes contra o Patrimônio",                             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-5",  "name": "Crimes contra a Administração Pública",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-6",  "name": "Lei Maria da Penha / Violência Doméstica",               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-7",  "name": "Crimes contra a Dignidade Sexual",                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-8",  "name": "Extinção da Punibilidade",                               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-9",  "name": "Aplicação da Lei Penal",                                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-penal-10", "name": "Legislação Penal Especial",                              "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-proc-penal",       "name": "Direito Processual Penal",                          "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-proc-penal-1",  "name": "Prisão, Medidas Cautelares e Liberdade Provisória", "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-2",  "name": "Recursos e Ações Autônomas",                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-3",  "name": "Ação Penal",                                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-4",  "name": "Provas",                                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-5",  "name": "Inquérito Policial",                                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-6",  "name": "Competência Penal",                                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-7",  "name": "Procedimentos",                                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-8",  "name": "Nulidades",                                         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-9",  "name": "Habeas Corpus e MS Penal",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-proc-penal-10", "name": "Execução Penal (LEP)",                              "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-dh",               "name": "Direitos Humanos",                                  "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-dh-1",  "name": "Sistema Interamericano de Direitos Humanos",                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-2",  "name": "Convenção Americana sobre Direitos Humanos (CADH)",         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-3",  "name": "Sistema Universal de DH (ONU)",                             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-4",  "name": "Pacto Internacional de Direitos Civis e Políticos",         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-5",  "name": "Declaração Universal dos Direitos Humanos",                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-6",  "name": "Mecanismos de Proteção Internacional",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-7",  "name": "Grupos Vulneráveis",                                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-8",  "name": "Corte e Comissão Interamericana",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-9",  "name": "Responsabilidade Internacional do Estado",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dh-10", "name": "Direitos Econômicos, Sociais e Culturais (DESC)",           "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-tributario",       "name": "Direito Tributário",                                "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-tributario-1", "name": "Obrigação e Crédito Tributário",                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-2", "name": "Impostos em Espécie",                                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-3", "name": "Princípios Constitucionais Tributários",              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-4", "name": "Competência Tributária",                              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-5", "name": "Exclusão, Suspensão e Extinção do Crédito",          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-6", "name": "Responsabilidade Tributária",                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-7", "name": "Execução Fiscal",                                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-8", "name": "Legislação Tributária",                              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-tributario-9", "name": "Simples Nacional",                                   "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-consumidor",       "name": "Direito do Consumidor",                             "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-consumidor-1", "name": "Responsabilidade pelo Fato e Vício",                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-2", "name": "Práticas Comerciais Abusivas",                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-3", "name": "Proteção Contratual",                                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-4", "name": "Direitos Básicos do Consumidor",                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-5", "name": "Conceitos Fundamentais",                             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-6", "name": "Defesa do Consumidor em Juízo",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-7", "name": "Publicidade",                                        "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-8", "name": "Cadastros de Inadimplentes",                         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-consumidor-9", "name": "Desconsideração da Personalidade Jurídica",          "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-eca",              "name": "Estatuto da Criança e do Adolescente",              "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-eca-1",  "name": "Ato Infracional e Medidas Socioeducativas",                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-2",  "name": "Direitos Fundamentais da Criança e Adolescente",           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-3",  "name": "Família Natural, Extensa e Substituta",                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-4",  "name": "Adoção",                                                   "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-5",  "name": "Conselho Tutelar",                                         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-6",  "name": "Violência contra Criança e Adolescente",                   "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-7",  "name": "Medidas de Proteção",                                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-8",  "name": "Internação",                                               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-9",  "name": "Justiça da Infância e Juventude",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-eca-10", "name": "SINASE",                                                   "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-empresarial",      "name": "Direito Empresarial",                               "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-empresarial-1", "name": "Títulos de Crédito",                               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-2", "name": "Falência e Recuperação Judicial",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-3", "name": "Sociedades Empresariais",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-4", "name": "Contratos Empresariais",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-5", "name": "Estabelecimento e Registro",                       "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-6", "name": "Responsabilidade dos Sócios",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-7", "name": "Propriedade Industrial",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-empresarial-8", "name": "Nome Empresarial",                                 "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-ambiental",        "name": "Direito Ambiental",                                 "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-ambiental-1", "name": "Política Nacional do Meio Ambiente",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-2", "name": "Responsabilidade Ambiental",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-3", "name": "Código Florestal",                                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-4", "name": "Licenciamento Ambiental",                             "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-5", "name": "Crimes Ambientais (Lei 9605/98)",                     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-6", "name": "Unidades de Conservação (SNUC)",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-7", "name": "Recursos Hídricos",                                   "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-ambiental-8", "name": "Dano Ambiental e Reparação",                          "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-idoso-pcd",        "name": "Estatuto do Idoso e da PCD",                        "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-idoso-pcd-1", "name": "Estatuto da Pessoa com Deficiência (LBI)",            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-2", "name": "Direitos Fundamentais do Idoso",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-3", "name": "Prioridade no Atendimento",                           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-4", "name": "Violência contra o Idoso",                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-5", "name": "Inclusão da Pessoa com Deficiência",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-6", "name": "Acessibilidade e Mobilidade",                         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-7", "name": "Benefícios Assistenciais (BPC/LOAS)",                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-idoso-pcd-8", "name": "Trabalho da Pessoa com Deficiência",                  "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-dp-institucional", "name": "Princípios Institucionais da Defensoria Pública",   "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-dp-institucional-1", "name": "Lei Complementar 80/94 (LONDP)",               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-2", "name": "Autonomia Funcional, Administrativa e Orçam.", "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-3", "name": "Garantias e Prerrogativas dos Defensores",     "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-4", "name": "Atribuições da Defensoria Pública",            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-5", "name": "Assistência Jurídica Gratuita",                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-6", "name": "Organização e Estrutura da DP",                "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-7", "name": "Carreira do Defensor Público",                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-8", "name": "Corregedoria e Fiscalização",                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-dp-institucional-9", "name": "Atuação Coletiva da DP",                       "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-filosofia",        "name": "Filosofia e Sociologia do Direito",                 "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-filosofia-1",  "name": "Hermenêutica Jurídica e Interpretação",              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-2",  "name": "Teoria Geral do Direito",                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-3",  "name": "Fontes do Direito",                                  "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-4",  "name": "Direito e Moral",                                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-5",  "name": "Teoria da Argumentação Jurídica",                    "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-6",  "name": "Justiça e Equidade",                                 "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-7",  "name": "Positivismo Jurídico e Escola Histórica",            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-8",  "name": "Sociologia do Conflito e Acesso à Justiça",          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-9",  "name": "Crítica ao Direito (Escola de Frankfurt)",           "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-filosofia-10", "name": "Funções Sociais do Direito",                         "estudado": false, "grifado": false, "questoes": false }
+    ]
+  },
+  { "id": "d-portugues",        "name": "Língua Portuguesa",                                 "weight": 1, "simulados": [],
+    "topics": [
+      { "id": "d-portugues-1",  "name": "Interpretação e Compreensão de Texto",               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-2",  "name": "Concordância Verbal e Nominal",                      "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-3",  "name": "Regência Verbal e Nominal",                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-4",  "name": "Crase",                                              "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-5",  "name": "Sintaxe",                                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-6",  "name": "Morfologia",                                         "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-7",  "name": "Ortografia e Acentuação",                            "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-8",  "name": "Pontuação",                                          "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-9",  "name": "Colocação Pronominal",                               "estudado": false, "grifado": false, "questoes": false },
+      { "id": "d-portugues-10", "name": "Semântica e Figuras de Linguagem",                   "estudado": false, "grifado": false, "questoes": false }
+    ]
   }
 ];
 
@@ -356,10 +519,7 @@ const INITIAL_SHARED = {
   achievements: [],
   petStage: 0,
   petHealth: 'healthy',
-  concursos: [
-    { id: 'dpe-sc', name: 'DPE SC', date: '2026-08-15', startedAt: '2026-05-01' },
-    { id: 'dpe-rj', name: 'DPE RJ', date: '2027-03-15', startedAt: '2026-05-01' },
-  ],
+  concursos: [],
 };
 
 const INITIAL_OBJETIVA  = { subjects: INITIAL_SUBJECTS_OBJ,  heatmap: {} };
@@ -427,7 +587,6 @@ function daysUntil(iso) {
 }
 
 // ── Pet System ──
-// 8 estágios — cores atualizadas para paleta TOGA
 const PET_STAGES = [
   { stage: 1, name: 'Ovinho Místico',         minXp: 0,     nextXp: 100,
     color: '#fff5e0', accent: '#C9A961', glow: '#E8C97A', shellColor: '#fff0d8',
