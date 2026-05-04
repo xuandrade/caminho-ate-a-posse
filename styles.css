@@ -530,8 +530,7 @@ html, body {
 @media (min-width: 820px) {
   .nav-sidebar { display: flex; }
   .nav-bottom  { display: none; }
-  /* !important overrides the inline margin:'0 auto' set on the <main> element */
-  .toga-main   { margin-left: 170px !important; }
+  .toga-main   { margin-left: 170px !important; margin-right: 0 !important; }
   .header-sticky { padding-left: 170px; }
 }
 @media (max-width: 819px) {

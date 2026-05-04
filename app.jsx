@@ -653,7 +653,7 @@ return (
     ))}
   </nav>
 
-  <main className="toga-main" style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 24px 100px', position: 'relative' }}>
+  <main className="toga-main" style={{ maxWidth: 1200, padding: '20px 24px 100px', position: 'relative' }}>
 
     {/* ── ABA: HOJE ── */}
     {activeTab === 'hoje' && (
