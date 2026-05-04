@@ -141,7 +141,6 @@ style={{ overflow: 'visible' }}>
 </radialGradient>
 </defs>
 
-```
   {/* Aura (stage 8 only) */}
   {showAura && (
     <circle cx="100" cy="115" r="92" fill={`url(#aura-${stage})`}
@@ -331,7 +330,6 @@ style={{ overflow: 'visible' }}>
     </g>
   )}
 </svg>
-```
 
 );
 }
@@ -362,7 +360,6 @@ background: sick
 <PetSprite stage={info.stage} sick={sick} size={130} />
 </div>
 
-```
   {/* Info / progress */}
   <div style={{ flex: 1, minWidth: 0 }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 4 }}>
@@ -421,7 +418,6 @@ background: sick
     )}
   </div>
 </div>
-```
 
 );
 }
@@ -460,7 +456,6 @@ textShadow: `0 0 14px ${toInfo.glow}`,
 ✨ EVOLUÇÃO ✨
 </div>
 
-```
     {/* Big pet sprite with glow halo */}
     <div style={{
       margin: '0 auto 24px', width: 220, height: 220, position: 'relative',
@@ -522,7 +517,6 @@ textShadow: `0 0 14px ${toInfo.glow}`,
     </button>
   </div>
 </div>
-```
 
 );
 }

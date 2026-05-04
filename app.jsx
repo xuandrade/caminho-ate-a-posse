@@ -96,7 +96,6 @@ style={{ width: '100%', maxWidth: 480, padding: 24, borderRadius: 18, position: 
 <I.close size={14} />
 </button>
 
-```
     <div style={{ marginBottom: 18 }}>
       <div style={{ fontSize: 10, letterSpacing: '0.25em', color: 'var(--tinta)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
         CONFIGURAR METAS
@@ -146,7 +145,6 @@ style={{ width: '100%', maxWidth: 480, padding: 24, borderRadius: 18, position: 
     </button>
   </div>
 </div>
-```
 
 );
 }
@@ -227,7 +225,6 @@ Sua jornada até agora 📊
 </div>
 </div>
 
-```
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
     {items.map((m, i) => (
       <div key={i} style={{
@@ -262,7 +259,6 @@ Sua jornada até agora 📊
     ))}
   </div>
 </div>
-```
 
 );
 }
@@ -548,7 +544,6 @@ return (
 <div className="aurora" />
 <div className="dot-grid" />
 
-```
   <GlobalHeader shared={shared} mode={mode} setMode={setMode} totalPct={totalStats.percentage} />
 
   <main style={{ maxWidth: 1400, margin: '0 auto', padding: '20px 24px 120px', position: 'relative' }}>
@@ -697,12 +692,8 @@ return (
 
   <div id="confetti-root" />
 </div>
-```
 
 );
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-
-# ================================================================================
-FIM DO CÓDIGO COMPLETO

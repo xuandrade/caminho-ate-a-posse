@@ -125,7 +125,6 @@ mais
 </div>
 </div>
 
-```
   <div style={{ overflowX: 'auto', paddingBottom: 6 }}>
     <div style={{ display: 'inline-block', minWidth: 'min-content' }}>
       {/* Month labels row */}
@@ -173,7 +172,6 @@ mais
     ÚLTIMOS 365 DIAS
   </div>
 </div>
-```
 
 );
 }

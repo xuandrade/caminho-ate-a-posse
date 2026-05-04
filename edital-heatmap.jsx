@@ -87,7 +87,6 @@ glow={p.glow} />
 </div>
 </div>
 
-```
   {/* Linha de métricas */}
   <div style={{ marginBottom: 14 }}>
     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 5, fontSize: 10.5, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', flexWrap: 'wrap', gap: 6 }}>
@@ -181,7 +180,6 @@ glow={p.glow} />
     TÓPICOS ESTÃO ORDENADOS DO MAIS DOMINADO AO MENOS DOMINADO. APÓS {REVIEW_DAYS} DIAS SEM ATIVIDADE, ELES BRILHAM ✦ PEDINDO REVISÃO.
   </div>
 </div>
-```
 
 );
 }

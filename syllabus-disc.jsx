@@ -160,7 +160,6 @@ onChange={e => onRename(subject.id, e.target.value)} />
 </div>
 </div>
 
-```
   {open && (
     <div style={{ borderTop: '1px solid rgba(12,13,18,0.04)' }}>
       {/* Tab strip */}
@@ -234,7 +233,6 @@ onChange={e => onRename(subject.id, e.target.value)} />
     </div>
   )}
 </div>
-```
 
 );
 }
@@ -280,7 +278,6 @@ style={{ background: 'linear-gradient(135deg, var(--ambar), var(--coral))', bord
 </div>
 </div>
 
-```
   {/* Line chart */}
   {sorted.length > 0 ? (
     <SimuladosChart sims={sorted} />
@@ -320,7 +317,6 @@ style={{ background: 'linear-gradient(135deg, var(--ambar), var(--coral))', bord
     </div>
   )}
 </div>
-```
 
 );
 }

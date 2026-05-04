@@ -23,7 +23,6 @@ RETROATIVO
 )}
 </div>
 
-```
       {/* Date — retroactive entry */}
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 4, fontWeight: 600 }}>DIA</div>
@@ -85,7 +84,6 @@ RETROATIVO
     </button>
   </div>
 </div>
-```
 
 );
 }
@@ -135,7 +133,6 @@ style={{ width: '100%', maxWidth: 440, padding: 24, borderRadius: 18, position: 
 <I.close size={14} />
 </button>
 
-```
     <div style={{ textAlign: 'center', marginBottom: 18 }}>
       <div style={{ fontSize: 10, letterSpacing: '0.25em', color: 'var(--neon-violet)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
         MODO BLINDADO
@@ -204,7 +201,6 @@ style={{ width: '100%', maxWidth: 440, padding: 24, borderRadius: 18, position: 
     )}
   </div>
 </div>
-```
 
 );
 }

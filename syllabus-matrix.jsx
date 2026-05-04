@@ -133,7 +133,6 @@ onClick={e => { e.stopPropagation(); onMoveSubject(idx, 'up'); }}><I.up size={11
 onClick={e => { e.stopPropagation(); onMoveSubject(idx, 'down'); }}><I.down size={11} /></button>
 </div>
 
-```
       <div style={{ position: 'relative', width: 40, height: 40, flexShrink: 0 }}>
         <svg viewBox="0 0 40 40" width={40} height={40}>
           <circle cx="20" cy="20" r="17" fill="none" stroke="rgba(12,13,18,0.06)" strokeWidth="3" />
@@ -198,7 +197,6 @@ onClick={e => { e.stopPropagation(); onMoveSubject(idx, 'down'); }}><I.down size
     @media (min-width: 640px) { .topic-row-obj { grid-template-columns: 1fr repeat(5, 56px); gap: 16px; } }
   `}</style>
 </div>
-```
 
 );
 }
