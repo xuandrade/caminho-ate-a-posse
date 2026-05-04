@@ -481,22 +481,22 @@ html, body {
 /* Sidebar desktop / bottom mobile */
 .nav-sidebar {
   position: fixed; left: 0; top: 0; bottom: 0;
-  width: 220px;
+  width: 170px;
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(18px);
   border-right: 1px solid rgba(42,45,58,0.08);
   display: none; flex-direction: column;
-  padding: 24px 12px 20px;
-  gap: 4px;
+  padding: 20px 10px 20px;
+  gap: 3px;
   z-index: 45;
 }
 .nav-sidebar-brand {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 20px; font-weight: 700;
+  font-size: 17px; font-weight: 700;
   color: var(--petroleo);
-  padding: 0 10px 16px;
+  padding: 0 8px 14px;
   border-bottom: 1px solid rgba(42,45,58,0.07);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   letter-spacing: -0.02em;
 }
 .nav-bottom {
@@ -510,9 +510,9 @@ html, body {
   padding: 0 4px;
 }
 .nav-tab {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 10px; border-radius: 10px;
-  color: var(--ardosia); font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 8px; border-radius: 9px;
+  color: var(--ardosia); font-size: 11px; font-weight: 600;
   cursor: pointer; border: none; background: transparent;
   transition: all 150ms ease;
 }
@@ -530,8 +530,9 @@ html, body {
 @media (min-width: 820px) {
   .nav-sidebar { display: flex; }
   .nav-bottom  { display: none; }
-  .toga-main   { margin-left: 220px; }
-  .header-sticky { padding-left: 220px; }
+  /* !important overrides the inline margin:'0 auto' set on the <main> element */
+  .toga-main   { margin-left: 170px !important; }
+  .header-sticky { padding-left: 170px; }
 }
 @media (max-width: 819px) {
   .toga-main   { padding-bottom: 80px !important; }

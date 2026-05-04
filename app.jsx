@@ -620,7 +620,6 @@ const TABS = [
   { id: 'edital',       label: 'EDITAL',        icon: '📋' },
   { id: 'estatisticas', label: 'ESTATÍSTICAS',  icon: '📊' },
   { id: 'historico',    label: 'HISTÓRICO',     icon: '📜' },
-  { id: 'provas',       label: 'PROVAS',        icon: '🎯' },
   { id: 'ajustes',      label: 'AJUSTES',       icon: '⚙️' },
 ];
 
@@ -689,6 +688,10 @@ return (
               </button>
             </div>
             <GavelBar percentage={totalStats.percentage} streak={shared.streak} shields={shared.shields} />
+            <ConcursoDonuts concursos={shared.concursos || []} setConcursos={setConcursos} />
+            {shared.concursos && shared.concursos.length > 0 && (
+              <ConcursoTimeline concursos={shared.concursos} onAddConcurso={(c) => setConcursos(cs => [...cs, c])} />
+            )}
           </div>
         </div>
 
@@ -699,12 +702,6 @@ return (
         <section style={{ marginBottom: 16 }}>
           <MetricsRow shared={shared} setShared={setShared} />
         </section>
-
-        {shared.concursos && shared.concursos.length > 0 && (
-          <section style={{ marginBottom: 16 }}>
-            <ConcursoDonuts concursos={shared.concursos} setConcursos={setConcursos} />
-          </section>
-        )}
 
         <section style={{ marginBottom: 16 }}>
           <TotalsSection shared={shared} objState={objState} discState={discState} />
@@ -761,30 +758,6 @@ return (
     {/* ── ABA: ESTATÍSTICAS ── */}
     {activeTab === 'estatisticas' && (
       <StatsPage shared={shared} objState={objState} discState={discState} />
-    )}
-
-    {/* ── ABA: PROVAS ── */}
-    {activeTab === 'provas' && (
-      <>
-        <div className="font-display" style={{ fontSize: 20, fontWeight: 700, color: 'var(--petroleo)', marginBottom: 16 }}>
-          Meus Concursos
-        </div>
-        <section style={{ marginBottom: 16 }}>
-          <ConcursoDonuts concursos={shared.concursos} setConcursos={setConcursos} />
-        </section>
-        {shared.concursos && shared.concursos.length > 0 && (
-          <section style={{ marginBottom: 16 }}>
-            <ConcursoTimeline concursos={shared.concursos} onAddConcurso={(c) => setConcursos(cs => [...cs, c])} />
-          </section>
-        )}
-        {(!shared.concursos || shared.concursos.length === 0) && (
-          <div className="glass" style={{ padding: 32, textAlign: 'center', color: 'var(--text-muted)' }}>
-            <div style={{ fontSize: 36, marginBottom: 8 }}>🎯</div>
-            <div style={{ fontSize: 15, fontWeight: 600, marginBottom: 4 }}>Nenhum concurso cadastrado</div>
-            <div style={{ fontSize: 13 }}>Use o botão "Adicionar concurso" acima para começar a monitorar suas provas.</div>
-          </div>
-        )}
-      </>
     )}
 
     {/* ── ABA: AJUSTES ── */}
