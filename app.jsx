@@ -480,50 +480,90 @@ setShared(s => ({ ...s, petHealth: next }));
 }
 }, []);
 
-const handleLog = (date, h, q, r) => {
-setShared(s => {
-const logs = [...s.dailyLogs];
-const idx = logs.findIndex(l => l.date === date);
-if (idx >= 0) {
-logs[idx] = { ...logs[idx], hours: (logs[idx].hours||0) + h, questions: (logs[idx].questions||0) + q, reviews: (logs[idx].reviews||0) + r };
-} else {
-logs.push({ date, hours: h, questions: q, reviews: r });
-logs.sort((a, b) => a.date.localeCompare(b.date));
+// ===== Streak (consecutive days with study) =====
+const calcStreak = (logs) => {
+const active = new Set(
+logs.filter(l => (l.hours||0) + (l.questions||0) + (l.reviews||0) > 0).map(l => l.date)
+);
+if (active.size === 0) return 0;
+const today = new Date(); today.setHours(0,0,0,0);
+const todayISO = today.toISOString().slice(0,10);
+const yestISO  = new Date(today.getTime() - 86400000).toISOString().slice(0,10);
+if (!active.has(todayISO) && !active.has(yestISO)) return 0;
+let streak = 0;
+let d = new Date(today);
+if (!active.has(todayISO)) d.setDate(d.getDate() - 1);
+while (active.has(d.toISOString().slice(0,10))) {
+streak++;
+d.setDate(d.getDate() - 1);
 }
-const xpGain = Math.round(h * 30 + q * 1.5 + r * 2);
-return { ...s, dailyLogs: logs, xp: s.xp + xpGain };
+return streak;
+};
+
+// Merge a session entry into dailyLogs
+const mergeLog = (logs, e) => {
+const out = [...logs];
+const idx = out.findIndex(l => l.date === e.date);
+if (idx >= 0) {
+const ex = out[idx];
+out[idx] = {
+...ex,
+hours:     (ex.hours||0)     + (e.hours||0),
+questions: (ex.questions||0) + (e.questions||0),
+correct:   (ex.correct||0)   + (e.correct||0),
+wrong:     (ex.wrong||0)     + (e.wrong||0),
+reviews:   (ex.reviews||0)   + (e.reviews||0),
+discipline: e.discipline || ex.discipline,
+studyType:  e.studyType  || ex.studyType,
+entries: [...(ex.entries||[]), e],
+};
+return { logs: out, idx };
+}
+out.push({ ...e, entries: [e] });
+out.sort((a,b) => a.date.localeCompare(b.date));
+return { logs: out, idx: out.findIndex(l => l.date === e.date) };
+};
+
+// Daily-goal bonus: only awarded when crossing the threshold
+const goalCrossBonus = (newDay, prevHours, prevQ, goals) => {
+let b = 0;
+if ((goals?.dailyHours||0) > 0 && newDay.hours >= goals.dailyHours && prevHours < goals.dailyHours) b += 5;
+if ((goals?.dailyQuestions||0) > 0 && newDay.questions >= goals.dailyQuestions && prevQ < goals.dailyQuestions) b += 5;
+return b;
+};
+
+const handleLog = (date, h, q, r) => {
+const entry = { date, hours: h, questions: q, reviews: r };
+setShared(s => {
+const { logs, idx } = mergeLog(s.dailyLogs, entry);
+const day = logs[idx];
+const bonus = goalCrossBonus(day, (day.hours||0)-h, (day.questions||0)-q, s.goals);
+return { ...s, dailyLogs: logs, xp: s.xp + bonus, streak: calcStreak(logs) };
 });
 window.celebrateVictory && window.celebrateVictory();
 };
 
 const handleEnrichedLog = (logEntry) => {
 setShared(s => {
-const logs = [...s.dailyLogs];
-const idx = logs.findIndex(l => l.date === logEntry.date);
-if (idx >= 0) {
-const existing = logs[idx];
-logs[idx] = {
-...existing,
-hours: (existing.hours||0) + (logEntry.hours||0),
-questions: (existing.questions||0) + (logEntry.questions||0),
-correct: (existing.correct||0) + (logEntry.correct||0),
-wrong: (existing.wrong||0) + (logEntry.wrong||0),
-reviews: (existing.reviews||0) + (logEntry.reviews||0),
-entries: [...(existing.entries||[]), logEntry],
-};
-} else {
-logs.push({ ...logEntry, entries: [logEntry] });
-logs.sort((a, b) => a.date.localeCompare(b.date));
-}
-const xpGain = Math.round((logEntry.hours||0) * 30 + (logEntry.questions||0) * 1.5 + (logEntry.reviews||0) * 2);
-return { ...s, dailyLogs: logs, xp: s.xp + xpGain };
+const { logs, idx } = mergeLog(s.dailyLogs, logEntry);
+const day = logs[idx];
+const bonus = goalCrossBonus(day, (day.hours||0)-(logEntry.hours||0), (day.questions||0)-(logEntry.questions||0), s.goals);
+return { ...s, dailyLogs: logs, xp: s.xp + bonus, streak: calcStreak(logs) };
 });
 window.celebrateLight && window.celebrateLight();
 };
 
-const handleSession = ({ minutes, xp, subjectId }) => {
-setShared(s => ({ ...s, xp: s.xp + xp }));
-if (minutes === 90) pushToast('marathon');
+const handleSession = ({ minutes, subjectId, discipline, studyType, note }) => {
+const today = new Date().toISOString().slice(0,10);
+const hours = minutes / 60;
+const entry = { date: today, hours, discipline, studyType: studyType || 'Pomodoro', note, source: 'pomodoro' };
+setShared(s => {
+const { logs, idx } = mergeLog(s.dailyLogs, entry);
+const day = logs[idx];
+const cross = goalCrossBonus(day, (day.hours||0)-hours, (day.questions||0), s.goals);
+return { ...s, dailyLogs: logs, xp: s.xp + 2 + cross, streak: calcStreak(logs) };
+});
+if (minutes >= 90) pushToast('marathon');
 window.celebrateVictory();
 };
 
@@ -576,11 +616,12 @@ const totalStats = mode === 'objetiva' ? window.DA.getTotalStatsObj(objState.sub
 const isSick = shared.petHealth === 'sick';
 
 const TABS = [
-  { id: 'hoje',         label: 'HOJE',    icon: '🏠' },
-  { id: 'edital',       label: 'EDITAL',  icon: '📋' },
-  { id: 'estatisticas', label: 'STATS',   icon: '📊' },
-  { id: 'provas',       label: 'PROVAS',  icon: '🎯' },
-  { id: 'ajustes',      label: 'AJUSTES', icon: '⚙️' },
+  { id: 'hoje',         label: 'HOJE',          icon: '🏠' },
+  { id: 'edital',       label: 'EDITAL',        icon: '📋' },
+  { id: 'estatisticas', label: 'ESTATÍSTICAS',  icon: '📊' },
+  { id: 'historico',    label: 'HISTÓRICO',     icon: '📜' },
+  { id: 'provas',       label: 'PROVAS',        icon: '🎯' },
+  { id: 'ajustes',      label: 'AJUSTES',       icon: '⚙️' },
 ];
 
 return (
@@ -638,10 +679,10 @@ return (
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button className="btn-ghost" onClick={() => setGoalsOpen(true)}
                 style={{ borderColor: 'rgba(91,71,184,0.4)', color: 'var(--tinta)', background: 'rgba(91,71,184,0.06)', fontWeight: 600, fontSize: 12 }}>
-                🎯 Metas
+                🎯 Personalizar Metas
               </button>
               <button className="btn-neon" onClick={() => setSessionLogOpen(true)} style={{ fontSize: 12 }}>
-                ✏️ Registrar sessão
+                ✏️ Registrar sessão de estudos
               </button>
               <button className="btn-ghost" onClick={() => setPomodoroOpen(true)} style={{ fontSize: 12 }}>
                 🛡 Blindado
@@ -652,8 +693,18 @@ return (
         </div>
 
         <section style={{ marginBottom: 16 }}>
+          <ConstanciaTracker logs={shared.dailyLogs} />
+        </section>
+
+        <section style={{ marginBottom: 16 }}>
           <MetricsRow shared={shared} setShared={setShared} />
         </section>
+
+        {shared.concursos && shared.concursos.length > 0 && (
+          <section style={{ marginBottom: 16 }}>
+            <ConcursoDonuts concursos={shared.concursos} setConcursos={setConcursos} />
+          </section>
+        )}
 
         <section style={{ marginBottom: 16 }}>
           <TotalsSection shared={shared} objState={objState} discState={discState} />
@@ -670,6 +721,11 @@ return (
       </>
     )}
 
+    {/* ── ABA: HISTÓRICO ── */}
+    {activeTab === 'historico' && (
+      <HistoricoTab shared={shared} />
+    )}
+
     {/* ── ABA: EDITAL ── */}
     {activeTab === 'edital' && (
       <>
@@ -682,7 +738,7 @@ return (
               · {mode === 'objetiva' ? 'OBJETIVA' : 'DISCURSIVA'}
             </div>
             <div style={{ marginLeft: 'auto', fontSize: 10, color: 'var(--text-dim)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
-              cada check +5 XP
+              cada check +1 XP × peso
             </div>
           </div>
           {mode === 'objetiva'
@@ -784,7 +840,7 @@ return (
 
   </main>
 
-  <QuickLogFAB onLog={handleLog} onOpenPomodoro={() => setPomodoroOpen(true)} />
+  <QuickLogFAB onOpenSessionLog={() => setSessionLogOpen(true)} onOpenPomodoro={() => setPomodoroOpen(true)} />
   <SessionLogModal open={sessionLogOpen} subjects={objState.subjects}
     onSave={handleEnrichedLog} onClose={() => setSessionLogOpen(false)} />
   <PomodoroModal open={pomodoroOpen} onClose={() => setPomodoroOpen(false)}

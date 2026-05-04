@@ -151,7 +151,7 @@ const ONBOARDING_STEPS = [
   {
     icon: '📋',
     title: 'Matriz do Edital',
-    body: 'Na aba EDITAL, marque os checkboxes conforme você estuda cada tópico: Lei seca, Teoria, Jurisprudência, Questões e Revisão. Cada check vale +5 XP.',
+    body: 'Na aba EDITAL, marque os checkboxes conforme você estuda cada tópico: Lei seca, Teoria, Jurisprudência, Questões e Revisão. Cada check vale +1 XP × peso da disciplina.',
   },
   {
     icon: '🏠',

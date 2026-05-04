@@ -15,8 +15,9 @@ if (t.id !== tId) return t;
 const next = { ...t, [flag]: !t[flag] };
 const nextChecks = FLAGS_DISC.filter(f => next[f]).length;
 const prevChecks = FLAGS_DISC.filter(f => t[f]).length;
-if (nextChecks > prevChecks) xpDelta = 5;
-if (nextChecks < prevChecks) xpDelta = -5;
+const w = Math.max(1, sub.weight || 1);          // weight-scaled XP
+if (nextChecks > prevChecks) xpDelta = 1 * w;
+if (nextChecks < prevChecks) xpDelta = -1 * w;
 if (nextChecks === 3 && prevChecks < 3) willMaster = true;
 if (xpDelta !== 0) next.lastStudiedAt = new Date().toISOString();
 return next;

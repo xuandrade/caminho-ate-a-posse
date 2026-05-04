@@ -15,8 +15,9 @@ if (t.id !== tId) return t;
 const next = { ...t, [flag]: !t[flag] };
 const nextChecks = FLAGS_OBJ.filter(f => next[f]).length;
 const prevChecks = FLAGS_OBJ.filter(f => t[f]).length;
-if (nextChecks > prevChecks) xpDelta = 5;       // +5 XP per check gained
-if (nextChecks < prevChecks) xpDelta = -5;      // -5 if unchecked
+const w = Math.max(1, sub.weight || 1);          // weight-scaled XP
+if (nextChecks > prevChecks) xpDelta = 1 * w;    // +1 × peso por check
+if (nextChecks < prevChecks) xpDelta = -1 * w;   // -1 × peso se desmarcar
 if (nextChecks === 5 && prevChecks < 5) willMaster = true;
 // Atualiza lastStudiedAt sempre que houver qualquer alteração nos checks
 // (necessário para o decaimento temporal do EditalHeatmap)

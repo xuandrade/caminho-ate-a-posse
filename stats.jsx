@@ -20,30 +20,40 @@ function StatsPage({ shared, objState, discState }) {
   const totalReviews   = filteredLogs.reduce((a, l) => a + (l.reviews || 0), 0);
   const activeDays     = filteredLogs.filter(l => (l.hours||0)+(l.questions||0)+(l.reviews||0) > 0).length;
 
+  // Flatten all entries (use entries[] when available; fallback to top-level log)
+  const allEntries = [];
+  filteredLogs.forEach(l => {
+    if (l.entries && l.entries.length > 0) {
+      l.entries.forEach(e => allEntries.push({ ...e, date: e.date || l.date }));
+    } else {
+      allEntries.push(l);
+    }
+  });
+
   // Hours per discipline
   const hoursByDisc = {};
-  filteredLogs.forEach(l => {
-    if (!l.discipline || !l.hours) return;
-    hoursByDisc[l.discipline] = (hoursByDisc[l.discipline] || 0) + l.hours;
+  allEntries.forEach(e => {
+    if (!e.discipline || !e.hours) return;
+    hoursByDisc[e.discipline] = (hoursByDisc[e.discipline] || 0) + e.hours;
   });
   const hoursByDiscArr = Object.entries(hoursByDisc)
     .sort((a,b) => b[1]-a[1]).slice(0, 8);
 
   // Hours per study type
   const hoursByType = {};
-  filteredLogs.forEach(l => {
-    if (!l.studyType || !l.hours) return;
-    hoursByType[l.studyType] = (hoursByType[l.studyType] || 0) + l.hours;
+  allEntries.forEach(e => {
+    if (!e.studyType || !e.hours) return;
+    hoursByType[e.studyType] = (hoursByType[e.studyType] || 0) + e.hours;
   });
   const hoursByTypeArr = Object.entries(hoursByType).sort((a,b) => b[1]-a[1]);
 
-  // Accuracy per discipline (questions logs)
+  // Accuracy per discipline (questions entries)
   const accByDisc = {};
-  filteredLogs.forEach(l => {
-    if (!l.discipline || (!l.correct && !l.wrong)) return;
-    if (!accByDisc[l.discipline]) accByDisc[l.discipline] = { c: 0, w: 0 };
-    accByDisc[l.discipline].c += (l.correct || 0);
-    accByDisc[l.discipline].w += (l.wrong || 0);
+  allEntries.forEach(e => {
+    if (!e.discipline || (!e.correct && !e.wrong)) return;
+    if (!accByDisc[e.discipline]) accByDisc[e.discipline] = { c: 0, w: 0 };
+    accByDisc[e.discipline].c += (e.correct || 0);
+    accByDisc[e.discipline].w += (e.wrong || 0);
   });
   const accByDiscArr = Object.entries(accByDisc)
     .map(([d, v]) => ({ d, pct: v.c + v.w > 0 ? v.c/(v.c+v.w)*100 : 0, total: v.c+v.w }))
@@ -70,13 +80,16 @@ function StatsPage({ shared, objState, discState }) {
   const worstSubjects = subjectStats.slice(0, 5);
   const bestSubjects  = subjectStats.slice(-5).reverse();
 
-  // Neglected (>= 7 days since last log that had that discipline)
+  // Neglected (>= 7 days since last entry that had that discipline)
   const lastLogByDisc = {};
   logs.forEach(l => {
-    if (l.discipline) {
-      if (!lastLogByDisc[l.discipline] || l.date > lastLogByDisc[l.discipline])
-        lastLogByDisc[l.discipline] = l.date;
-    }
+    const ents = (l.entries && l.entries.length > 0) ? l.entries : [l];
+    ents.forEach(e => {
+      if (e.discipline) {
+        if (!lastLogByDisc[e.discipline] || l.date > lastLogByDisc[e.discipline])
+          lastLogByDisc[e.discipline] = l.date;
+      }
+    });
   });
   const allDiscs = objState.subjects.map(s => s.name);
   const neglected = allDiscs.filter(d => {
@@ -230,21 +243,7 @@ function StatsPage({ shared, objState, discState }) {
           }
         </div>
 
-        {/* Chart 5 — Top 5 piores disciplinas (no edital) */}
-        <div className="glass" style={{ padding: 16 }}>
-          <div style={{ fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', fontWeight: 700, marginBottom: 10, fontFamily: 'JetBrains Mono, monospace' }}>TOP 5 PIORES NO EDITAL</div>
-          {worstSubjects.map((s, i) => (
-            <div key={s.name} style={{ marginBottom: 8 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 3 }}>
-                <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{s.name}</span>
-                <span className="num" style={{ color: 'var(--coral)', fontWeight: 700 }}>{s.pct.toFixed(0)}%</span>
-              </div>
-              <Bar pct={s.pct} color="var(--coral)" />
-            </div>
-          ))}
-        </div>
-
-        {/* Chart 6 — Top 5 melhores disciplinas */}
+        {/* Chart 5 — Top 5 melhores disciplinas */}
         <div className="glass" style={{ padding: 16 }}>
           <div style={{ fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', fontWeight: 700, marginBottom: 10, fontFamily: 'JetBrains Mono, monospace' }}>TOP 5 MELHORES NO EDITAL</div>
           {bestSubjects.map((s, i) => (
@@ -254,6 +253,20 @@ function StatsPage({ shared, objState, discState }) {
                 <span className="num" style={{ color: 'var(--esmeralda)', fontWeight: 700 }}>{s.pct.toFixed(0)}%</span>
               </div>
               <Bar pct={s.pct} color="var(--esmeralda)" />
+            </div>
+          ))}
+        </div>
+
+        {/* Chart 6 — Top 5 piores disciplinas (no edital) */}
+        <div className="glass" style={{ padding: 16 }}>
+          <div style={{ fontSize: 10, letterSpacing: '0.15em', color: 'var(--text-muted)', fontWeight: 700, marginBottom: 10, fontFamily: 'JetBrains Mono, monospace' }}>TOP 5 PIORES NO EDITAL</div>
+          {worstSubjects.map((s, i) => (
+            <div key={s.name} style={{ marginBottom: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 3 }}>
+                <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{s.name}</span>
+                <span className="num" style={{ color: 'var(--coral)', fontWeight: 700 }}>{s.pct.toFixed(0)}%</span>
+              </div>
+              <Bar pct={s.pct} color="var(--coral)" />
             </div>
           ))}
         </div>
