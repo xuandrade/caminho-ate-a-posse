@@ -1,6 +1,6 @@
-// TOGA — Aba Histórico (lista de sessões agrupadas por dia)
+// TOGA — Aba Histórico (lista de sessões agrupadas por dia, com edição/exclusão)
 
-function HistoricoTab({ shared }) {
+function HistoricoTab({ shared, onEditEntry, onDeleteEntry }) {
   const logs = shared.dailyLogs || [];
 
   // Order from most recent to oldest
@@ -34,6 +34,12 @@ function HistoricoTab({ shared }) {
     if (hh === 0) return `${mm}min`;
     if (mm === 0) return `${hh}h`;
     return `${hh}h ${mm}min`;
+  };
+
+  const handleDelete = (date, entryIndex, entry) => {
+    const what = entry.discipline ? `"${entry.discipline}${entry.topic ? ' · ' + entry.topic : ''}"` : 'esta sessão';
+    if (!window.confirm(`Excluir ${what}?\n\nEsta ação não pode ser desfeita (mas seus outros registros ficam intactos).`)) return;
+    onDeleteEntry && onDeleteEntry(date, entryIndex, entry);
   };
 
   return (
@@ -101,7 +107,7 @@ function HistoricoTab({ shared }) {
                           <span style={{ fontSize: 11, color: 'var(--tinta)' }}>🛡</span>
                         )}
                       </div>
-                      <div style={{ display: 'flex', gap: 10, fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                      <div style={{ display: 'flex', gap: 10, alignItems: 'center', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
                         {(e.hours || 0) > 0 && <span style={{ color: 'var(--ciano)' }}>{fmtHours(e.hours)}</span>}
                         {(e.questions || 0) > 0 && <span style={{ color: 'var(--esmeralda)' }}>{e.questions}q</span>}
                         {accPct !== null && (
@@ -110,6 +116,29 @@ function HistoricoTab({ shared }) {
                           </span>
                         )}
                         {(e.reviews || 0) > 0 && <span style={{ color: 'var(--tinta)' }}>{e.reviews}r</span>}
+                        {/* Ações: editar / excluir */}
+                        {(onEditEntry || onDeleteEntry) && (
+                          <span style={{ display: 'inline-flex', gap: 4, marginLeft: 4 }}>
+                            {onEditEntry && (
+                              <button
+                                onClick={() => onEditEntry(day.date, i, e)}
+                                title="Editar"
+                                className="btn-ghost"
+                                style={{ fontSize: 11, padding: '2px 7px', lineHeight: 1 }}>
+                                ✏️
+                              </button>
+                            )}
+                            {onDeleteEntry && (
+                              <button
+                                onClick={() => handleDelete(day.date, i, e)}
+                                title="Excluir"
+                                className="btn-ghost"
+                                style={{ fontSize: 11, padding: '2px 7px', lineHeight: 1, color: 'var(--coral)' }}>
+                                🗑
+                              </button>
+                            )}
+                          </span>
+                        )}
                       </div>
                     </div>
                     {e.note && (
