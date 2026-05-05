@@ -61,25 +61,43 @@ function PomodoroModal({ open, onClose, subjects, onCompleteSession }) {
 
   const totalSecs = mins * 60;
 
-  // Timer (countdown) tick
+  // ⏱ Wall-clock tick — usa Date.now() para nunca atrasar (mesmo com aba em segundo plano,
+  // re-renders ou throttling do navegador). Reagenda apenas em mudanças de fase/pausa/modo.
   React.useEffect(() => {
-    if (phase !== 'running' || paused || mode !== 'timer') return;
-    if (secsLeft <= 0) {
-      setDoneMins(mins);
-      setPhase('done');
-      window.celebrateVictory && window.celebrateVictory();
-      return;
-    }
-    const t = setTimeout(() => setSecsLeft(s => s - 1), 1000);
-    return () => clearTimeout(t);
-  }, [phase, paused, secsLeft, mode]);
-
-  // Chronometer (count-up) tick
-  React.useEffect(() => {
-    if (phase !== 'running' || paused || mode !== 'chrono') return;
-    const t = setTimeout(() => setSecsElapsed(s => s + 1), 1000);
-    return () => clearTimeout(t);
-  }, [phase, paused, secsElapsed, mode]);
+    if (phase !== 'running' || paused) return;
+    const startWall = Date.now();
+    const baseLeft = secsLeft;       // snapshot no momento em que o tick começa
+    const baseElapsed = secsElapsed;
+    let finished = false;
+    const tick = () => {
+      const elapsedSec = Math.floor((Date.now() - startWall) / 1000);
+      if (mode === 'timer') {
+        const newLeft = Math.max(0, baseLeft - elapsedSec);
+        setSecsLeft(newLeft);
+        if (newLeft <= 0 && !finished) {
+          finished = true;
+          clearInterval(id);
+          setDoneMins(mins);
+          setPhase('done');
+          window.celebrateVictory && window.celebrateVictory();
+        }
+      } else {
+        setSecsElapsed(baseElapsed + elapsedSec);
+      }
+    };
+    // Atualiza 4×/s para o display ficar fluido sem perder precisão de relógio
+    const id = setInterval(tick, 250);
+    // Também dispara um tick imediato para evitar "buraco" inicial de 250ms
+    tick();
+    // Recomputa quando a aba volta a ficar visível, garantindo que não há atraso
+    const onVis = () => { if (!document.hidden) tick(); };
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      clearInterval(id);
+      document.removeEventListener('visibilitychange', onVis);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phase, paused, mode]);
 
   React.useEffect(() => {
     if (open) {
