@@ -1,17 +1,56 @@
 // TOGA — Modal de Registro Enriquecido de Sessão (Bloco 5)
 // Suporta entrada manual de duração OU cronômetro (count-up).
+// Aceita disciplinas dos dois modos (objetiva + discursiva) e tipo de estudo customizado.
+// Reusável em modo "novo" e "edição" via prop initialEntry.
 
-const STUDY_TYPES = [
+const STUDY_TYPES_DEFAULT = [
   'Lei seca', 'Teoria', 'Jurisprudência', 'Questões',
   'Revisão', 'Mapa mental', 'Aula', 'Simulado',
 ];
 
-function SessionLogModal({ open, subjects, onSave, onClose }) {
+// Lê tipos customizados persistidos pelo usuário
+function loadCustomStudyTypes() {
+  try {
+    const raw = localStorage.getItem('toga_custom_study_types');
+    if (!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.filter(s => typeof s === 'string') : [];
+  } catch { return []; }
+}
+function saveCustomStudyTypes(arr) {
+  try { localStorage.setItem('toga_custom_study_types', JSON.stringify(arr)); } catch {}
+}
+
+// Mescla duas listas de subjects (objetiva e discursiva) por nome.
+// Tópicos são unidos sem duplicar (chave: name).
+function mergeSubjectLists(...lists) {
+  const byName = new Map();
+  lists.forEach(list => (list || []).forEach(s => {
+    const key = (s.name || '').trim();
+    if (!key) return;
+    const existing = byName.get(key);
+    if (!existing) {
+      byName.set(key, { id: s.id || key, name: key, topics: [...(s.topics || [])] });
+    } else {
+      const seen = new Set(existing.topics.map(t => t.name));
+      (s.topics || []).forEach(t => { if (!seen.has(t.name)) existing.topics.push(t); });
+    }
+  }));
+  return [...byName.values()];
+}
+
+function SessionLogModal({ open, subjects, objSubjects, discSubjects, initialEntry, onSave, onEdit, onClose }) {
   const { useState: useSt, useEffect: useEff, useRef: useR } = React;
 
-  const todayISO = new Date().toISOString().slice(0, 10);
+  // Lista efetiva de disciplinas: se vierem objSubjects/discSubjects, mescla; senão usa subjects (compat).
+  const effectiveSubjects = (objSubjects || discSubjects)
+    ? mergeSubjectLists(objSubjects, discSubjects)
+    : (subjects || []);
 
-  const empty = {
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const isEdit = !!initialEntry;
+
+  const buildEmpty = () => ({
     date: todayISO,
     discipline: '',
     topic: '',
@@ -23,44 +62,104 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
     wrong: '',
     reviews: '',
     note: '',
+  });
+
+  // Pré-popula a partir de uma entrada existente (modo edição)
+  const buildFromEntry = (e) => {
+    if (!e) return buildEmpty();
+    const totalMins = Math.round((e.hours || 0) * 60);
+    const hh = Math.floor(totalMins / 60);
+    const mm = totalMins % 60;
+    return {
+      date: e.date || todayISO,
+      discipline: e.discipline || '',
+      topic: e.topic || '',
+      studyType: e.studyType || '',
+      hours: hh ? String(hh) : '',
+      minutes: mm ? String(mm) : '',
+      questions: e.questions ? String(e.questions) : '',
+      correct: e.correct ? String(e.correct) : '',
+      wrong: e.wrong ? String(e.wrong) : '',
+      reviews: e.reviews ? String(e.reviews) : '',
+      note: e.note || '',
+    };
   };
 
-  const [form, setForm] = useSt(empty);
+  const [form, setForm]                   = useSt(buildEmpty);
+  const [customTypes, setCustomTypes]     = useSt(loadCustomStudyTypes);
+  const [addingType, setAddingType]       = useSt(false);
+  const [newTypeName, setNewTypeName]     = useSt('');
 
   // Chronometer state
   const [chronoOpen, setChronoOpen]       = useSt(false);
   const [chronoRunning, setChronoRunning] = useSt(false);
   const [chronoSecs, setChronoSecs]       = useSt(0);
-  const chronoRef = useR(null);
+  const chronoStartRef = useR(null);
+  const chronoBaseRef  = useR(0);
+  const chronoIdRef    = useR(null);
 
   useEff(() => {
     if (open) {
-      setForm(empty);
+      setForm(buildFromEntry(initialEntry));
       setChronoOpen(false);
       setChronoRunning(false);
       setChronoSecs(0);
+      setAddingType(false);
+      setNewTypeName('');
+      setCustomTypes(loadCustomStudyTypes());
     }
-  }, [open]);
+  }, [open, initialEntry]);
 
-  // Chronometer tick
+  // Cronômetro com wall-clock (sem drift)
   useEff(() => {
     if (chronoRunning) {
-      chronoRef.current = setInterval(() => setChronoSecs(s => s + 1), 1000);
-    } else if (chronoRef.current) {
-      clearInterval(chronoRef.current);
-      chronoRef.current = null;
+      chronoStartRef.current = Date.now();
+      chronoBaseRef.current  = chronoSecs;
+      chronoIdRef.current = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - chronoStartRef.current) / 1000);
+        setChronoSecs(chronoBaseRef.current + elapsed);
+      }, 250);
+    } else if (chronoIdRef.current) {
+      clearInterval(chronoIdRef.current);
+      chronoIdRef.current = null;
     }
-    return () => { if (chronoRef.current) clearInterval(chronoRef.current); };
+    return () => { if (chronoIdRef.current) { clearInterval(chronoIdRef.current); chronoIdRef.current = null; } };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chronoRunning]);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
-  const selectedSubject = subjects.find(s => s.name === form.discipline);
+  const selectedSubject = effectiveSubjects.find(s => s.name === form.discipline);
   const topicOptions = selectedSubject
-    ? selectedSubject.topics.map(t => t.name)
+    ? (selectedSubject.topics || []).map(t => t.name)
     : [];
 
+  const allStudyTypes = [...STUDY_TYPES_DEFAULT, ...customTypes];
   const showQuestionsFields = form.studyType === 'Questões' || form.studyType === 'Simulado';
+
+  const addCustomType = () => {
+    const name = newTypeName.trim();
+    if (!name) return;
+    if (allStudyTypes.includes(name)) {
+      set('studyType', name);
+      setAddingType(false);
+      setNewTypeName('');
+      return;
+    }
+    const next = [...customTypes, name];
+    setCustomTypes(next);
+    saveCustomStudyTypes(next);
+    set('studyType', name);
+    setAddingType(false);
+    setNewTypeName('');
+  };
+
+  const removeCustomType = (name) => {
+    const next = customTypes.filter(t => t !== name);
+    setCustomTypes(next);
+    saveCustomStudyTypes(next);
+    if (form.studyType === name) set('studyType', '');
+  };
 
   const applyChrono = () => {
     const totalMins = Math.round(chronoSecs / 60);
@@ -75,6 +174,7 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
   const resetChrono = () => {
     setChronoRunning(false);
     setChronoSecs(0);
+    chronoBaseRef.current = 0;
   };
 
   const handleSave = () => {
@@ -92,7 +192,11 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
       studyType: form.studyType || undefined,
       note: form.note.trim() || undefined,
     };
-    onSave(log);
+    if (isEdit && onEdit) {
+      onEdit(log, initialEntry);
+    } else {
+      onSave(log);
+    }
     onClose();
   };
 
@@ -124,8 +228,12 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
         <button onClick={onClose} className="btn-ghost" style={{ position: 'absolute', top: 12, right: 12, padding: '4px 8px' }}>✕</button>
 
         <div style={{ marginBottom: 18 }}>
-          <div style={{ fontSize: 10, letterSpacing: '0.25em', color: 'var(--ciano)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>REGISTRAR SESSÃO DE ESTUDOS</div>
-          <div className="font-display" style={{ fontSize: 20, fontWeight: 700, marginTop: 3 }}>O que você estudou?</div>
+          <div style={{ fontSize: 10, letterSpacing: '0.25em', color: 'var(--ciano)', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700 }}>
+            {isEdit ? 'EDITAR SESSÃO DE ESTUDOS' : 'REGISTRAR SESSÃO DE ESTUDOS'}
+          </div>
+          <div className="font-display" style={{ fontSize: 20, fontWeight: 700, marginTop: 3 }}>
+            {isEdit ? 'Ajuste os detalhes' : 'O que você estudou?'}
+          </div>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -141,7 +249,7 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
             <label style={labelStyle}>Disciplina</label>
             <select value={form.discipline} onChange={e => { set('discipline', e.target.value); set('topic', ''); }} style={inputStyle}>
               <option value="">— Selecione —</option>
-              {subjects.map(s => <option key={s.id} value={s.name}>{s.name}</option>)}
+              {effectiveSubjects.map(s => <option key={s.id} value={s.name}>{s.name}</option>)}
             </select>
           </div>
 
@@ -160,7 +268,7 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
           <div>
             <label style={labelStyle}>Tipo de estudo</label>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-              {STUDY_TYPES.map(t => (
+              {STUDY_TYPES_DEFAULT.map(t => (
                 <button key={t} onClick={() => set('studyType', form.studyType === t ? '' : t)}
                   className={form.studyType === t ? 'btn-neon' : 'btn-ghost'}
                   style={{ fontSize: 12, padding: '5px 12px',
@@ -168,7 +276,44 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
                   {t}
                 </button>
               ))}
+              {customTypes.map(t => (
+                <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+                  <button onClick={() => set('studyType', form.studyType === t ? '' : t)}
+                    className={form.studyType === t ? 'btn-neon' : 'btn-ghost'}
+                    style={{ fontSize: 12, padding: '5px 10px',
+                      ...(form.studyType === t ? { background: 'var(--tinta)', borderColor: 'transparent', color: 'white' } : {}) }}>
+                    {t}
+                  </button>
+                  <button onClick={() => removeCustomType(t)} className="btn-ghost"
+                    title="Remover este tipo personalizado"
+                    style={{ fontSize: 10, padding: '3px 6px', opacity: 0.6 }}>✕</button>
+                </span>
+              ))}
+              {!addingType && (
+                <button onClick={() => setAddingType(true)} className="btn-ghost"
+                  style={{ fontSize: 12, padding: '5px 12px', borderStyle: 'dashed' }}>
+                  + Adicionar
+                </button>
+              )}
             </div>
+            {addingType && (
+              <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+                <input
+                  autoFocus
+                  value={newTypeName}
+                  onChange={e => setNewTypeName(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') addCustomType(); if (e.key === 'Escape') { setAddingType(false); setNewTypeName(''); } }}
+                  placeholder="Ex.: Resumo, Audiobook, Podcast…"
+                  style={{ ...inputStyle, flex: 1 }} />
+                <button onClick={addCustomType} className="btn-neon"
+                  style={{ fontSize: 12, padding: '6px 14px', background: 'var(--petroleo)', borderColor: 'transparent', color: 'white' }}>
+                  Adicionar
+                </button>
+                <button onClick={() => { setAddingType(false); setNewTypeName(''); }} className="btn-ghost" style={{ fontSize: 12, padding: '6px 10px' }}>
+                  Cancelar
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Duration with chronometer toggle */}
@@ -283,9 +428,11 @@ function SessionLogModal({ open, subjects, onSave, onClose }) {
           background: 'linear-gradient(135deg, var(--petroleo), var(--ciano))',
           borderColor: 'transparent', color: 'white',
         }}>
-          Salvar sessão
+          {isEdit ? 'Salvar alterações' : 'Salvar sessão'}
         </button>
       </div>
     </div>
   );
 }
+
+window.SessionLogModal = SessionLogModal;
