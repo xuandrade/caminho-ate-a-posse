@@ -293,17 +293,38 @@ const reader = new FileReader();
 reader.onload = (ev) => {
 try {
 const data = JSON.parse(ev.target.result);
-if (!data.shared || !data.objetiva || !data.discursiva) {
-alert('Arquivo inválido. O backup precisa ter as chaves: shared, objetiva, discursiva.');
+// Backup tolerante: aceita variações de chave e mescla com o estado atual
+const restored = {
+shared:     data.shared     || data.SHARED     || null,
+objetiva:   data.objetiva   || data.objective  || data.obj  || null,
+discursiva: data.discursiva || data.discursive || data.disc || null,
+};
+if (!restored.shared && !restored.objetiva && !restored.discursiva) {
+alert('Arquivo inválido. Não encontrei nenhuma das chaves esperadas (shared, objetiva, discursiva).');
 return;
 }
+// Auto-backup de segurança antes de sobrescrever
+try {
+const safety = { version: 'v3', exportedAt: new Date().toISOString(), shared, objetiva: objState, discursiva: discState };
+const blob = new Blob([JSON.stringify(safety, null, 2)], { type: 'application/json' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `toga-auto-backup-antes-de-restaurar-${new Date().toISOString().slice(0,19).replace(/[:.]/g,'-')}.json`;
+document.body.appendChild(a); a.click(); document.body.removeChild(a);
+URL.revokeObjectURL(url);
+} catch (_) { /* ignore */ }
 const ok = window.confirm(
-'Isso vai SOBRESCREVER todos os seus dados atuais (disciplinas, tópicos, XP, streak, heatmap, metas).\n\n' +
-'Sugestão: faça um backup antes, caso queira voltar.\n\n' +
+'Vou restaurar o backup. Acabei de baixar um auto-backup do seu estado atual, por segurança.\n\n' +
+'Campos ausentes no arquivo permanecerão como estão hoje.\n\n' +
 'Deseja continuar?'
 );
 if (!ok) return;
-onRestore(data);
+onRestore({
+shared:     restored.shared     || shared,
+objetiva:   restored.objetiva   || objState,
+discursiva: restored.discursiva || discState,
+});
 onToast('restore_done');
 } catch (err) {
 alert('Erro ao ler o arquivo: ' + err.message);
@@ -434,6 +455,7 @@ const [showSplash, setShowSplash] = useState(tweaks.showSplash);
 const [pomodoroOpen, setPomodoroOpen] = useState(false);
 const [goalsOpen, setGoalsOpen] = useState(false);
 const [sessionLogOpen, setSessionLogOpen] = useState(false);
+const [editingEntry, setEditingEntry] = useState(null); // { date, index, entry } | null
 const [activeTab, setActiveTab] = useState('hoje');
 const [legalModal, setLegalModal] = useState(null); // 'privacy' | 'terms' | null
 const [showOnboarding, setShowOnboarding] = useState(() => !localStorage.getItem('toga_onboarded_tutorial'));
@@ -588,11 +610,84 @@ const setConcursos = (updater) => {
 setShared(s => ({ ...s, concursos: typeof updater === 'function' ? updater(s.concursos) : updater }));
 };
 
+// Recalcula totais do dia a partir das entries (após editar/excluir)
+const recomputeDay = (date, entries) => {
+const sum = entries.reduce((acc, e) => ({
+hours:     acc.hours     + (e.hours || 0),
+questions: acc.questions + (e.questions || 0),
+correct:   acc.correct   + (e.correct || 0),
+wrong:     acc.wrong     + (e.wrong || 0),
+reviews:   acc.reviews   + (e.reviews || 0),
+}), { hours: 0, questions: 0, correct: 0, wrong: 0, reviews: 0 });
+const last = entries[entries.length - 1] || {};
+return {
+date,
+...sum,
+discipline: last.discipline,
+studyType:  last.studyType,
+entries,
+};
+};
+
+const handleEditEntry = (date, index, entry) => {
+setEditingEntry({ date, index, entry });
+setSessionLogOpen(true);
+};
+
+const handleDeleteEntry = (date, index) => {
+setShared(s => {
+const logs = [...(s.dailyLogs || [])];
+const di = logs.findIndex(l => l.date === date);
+if (di < 0) return s;
+const day = logs[di];
+let entries = (day.entries && day.entries.length > 0) ? [...day.entries] : [day];
+entries.splice(index, 1);
+if (entries.length === 0) {
+logs.splice(di, 1);
+} else {
+logs[di] = recomputeDay(date, entries);
+}
+return { ...s, dailyLogs: logs, streak: calcStreak(logs) };
+});
+};
+
+const handleSaveEditedEntry = (newEntry, oldRef) => {
+const oldDate = editingEntry?.date || oldRef?.date;
+const oldIndex = editingEntry?.index;
+setEditingEntry(null);
+setShared(s => {
+let logs = [...(s.dailyLogs || [])];
+// remove a entrada antiga
+const oldDi = logs.findIndex(l => l.date === oldDate);
+if (oldDi >= 0 && typeof oldIndex === 'number') {
+const day = logs[oldDi];
+let entries = (day.entries && day.entries.length > 0) ? [...day.entries] : [day];
+entries.splice(oldIndex, 1);
+if (entries.length === 0) {
+logs.splice(oldDi, 1);
+} else {
+logs[oldDi] = recomputeDay(oldDate, entries);
+}
+}
+// insere a nova (na nova data, se mudou)
+const newDi = logs.findIndex(l => l.date === newEntry.date);
+if (newDi >= 0) {
+const day = logs[newDi];
+const entries = [...((day.entries && day.entries.length > 0) ? day.entries : [day]), newEntry];
+logs[newDi] = recomputeDay(newEntry.date, entries);
+} else {
+logs.push(recomputeDay(newEntry.date, [newEntry]));
+logs.sort((a,b) => a.date.localeCompare(b.date));
+}
+return { ...s, dailyLogs: logs, streak: calcStreak(logs) };
+});
+};
+
 const handleRestore = (backup) => {
 setShared(backup.shared);
 setObjState(backup.objetiva);
 setDiscState(backup.discursiva);
-prevPetStageRef.current = window.DA.getPetStage(backup.shared.xp || 0);
+prevPetStageRef.current = window.DA.getPetStage((backup.shared && backup.shared.xp) || 0);
 };
 
 const handleReset = () => {
@@ -720,7 +815,9 @@ return (
 
     {/* ── ABA: HISTÓRICO ── */}
     {activeTab === 'historico' && (
-      <HistoricoTab shared={shared} />
+      <HistoricoTab shared={shared}
+        onEditEntry={handleEditEntry}
+        onDeleteEntry={handleDeleteEntry} />
     )}
 
     {/* ── ABA: EDITAL ── */}
@@ -814,8 +911,14 @@ return (
   </main>
 
   <QuickLogFAB onOpenSessionLog={() => setSessionLogOpen(true)} onOpenPomodoro={() => setPomodoroOpen(true)} />
-  <SessionLogModal open={sessionLogOpen} subjects={objState.subjects}
-    onSave={handleEnrichedLog} onClose={() => setSessionLogOpen(false)} />
+  <SessionLogModal
+    open={sessionLogOpen}
+    objSubjects={objState.subjects}
+    discSubjects={discState.subjects}
+    initialEntry={editingEntry ? editingEntry.entry : null}
+    onSave={handleEnrichedLog}
+    onEdit={handleSaveEditedEntry}
+    onClose={() => { setSessionLogOpen(false); setEditingEntry(null); }} />
   <PomodoroModal open={pomodoroOpen} onClose={() => setPomodoroOpen(false)}
     subjects={activeSubjects.length ? activeSubjects : objState.subjects} onCompleteSession={handleSession} />
   <GoalsModal open={goalsOpen} goals={shared.goals} onSave={handleSaveGoals} onClose={() => setGoalsOpen(false)} />
