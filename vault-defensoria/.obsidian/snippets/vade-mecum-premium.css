@@ -1,0 +1,141 @@
+/* VADE MECUM PREMIUM - CSS */
+
+.capitulo {
+    background: linear-gradient(135deg, #FFE4E1 0%, #FFF5EE 100%);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 6px solid #FF69B4;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+}
+
+h2 {
+    background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+    color: #8B4567;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 25px 0 15px 0;
+    box-shadow: 0 3px 10px rgba(255, 182, 193, 0.3);
+}
+
+h3 {
+    color: #C71585;
+    font-size: 1.3em;
+    font-weight: 800;
+    border-bottom: 2px solid #FFB6C1;
+}
+
+.excecao {
+    color: #DC143C !important;
+    font-weight: 700;
+    background: #FFE4E1;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #DC143C;
+}
+
+.pegadinha {
+    color: #FF8C00 !important;
+    font-weight: 700;
+    background: #FFE4B5;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #FF8C00;
+}
+
+.prazo {
+    font-size: 1.3em !important;
+    font-weight: 900 !important;
+    color: #8B0000 !important;
+    text-decoration: underline;
+    background: #FFF8DC;
+    padding: 5px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(139, 0, 0, 0.2);
+}
+
+.fgv {
+    color: #FF4500 !important;
+    font-weight: 800;
+    background: #FFE4B5;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.fcc {
+    color: #B8860B !important;
+    font-weight: 800;
+    background: #FFFFE0;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.callout[data-callout="note"] {
+    background: linear-gradient(135deg, #FFB6C1 0%, #FFD1DC 100%) !important;
+    border-left: 5px solid #FF1493 !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+}
+
+.callout[data-callout="success"] {
+    background: linear-gradient(135deg, #AFEEEE 0%, #B0E0E6 100%) !important;
+    border-left: 5px solid #20B2AA !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+}
+
+.callout[data-callout="tip"] {
+    background: linear-gradient(135deg, #E6E6FA 0%, #F0E6FF 100%) !important;
+    border-left: 5px solid #9370DB !important;
+    border-radius: 10px !important;
+}
+
+.callout[data-callout="warning"] {
+    background: linear-gradient(135deg, #FFE4E1 0%, #FFF0F0 100%) !important;
+    border-left: 5px solid #FF6B6B !important;
+    border-radius: 10px !important;
+}
+
+.callout[data-callout="example"] {
+    background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 100%) !important;
+    border-left: 5px solid #FFD700 !important;
+    border-radius: 10px !important;
+}
+
+a.tag {
+    background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+    color: white;
+}
+
+tr:hover {
+    background: #FFF5F7;
+}
+
+a.internal-link {
+    color: #FF1493;
+    font-weight: 600;
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #FFB6C1, transparent);
+}

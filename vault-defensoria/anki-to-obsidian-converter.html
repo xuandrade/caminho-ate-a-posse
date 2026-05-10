@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>🎴 Anki → Obsidian</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #667eea;
+        }
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎴 Anki → Obsidian Converter</h1>
+        <div class="upload-area" onclick="document.getElementById('file').click()">
+            📁 Clique ou arraste arquivo .txt
+        </div>
+        <input type="file" id="file" accept=".txt" style="display:none">
+        <button id="convert" style="display:none">CONVERTER</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+        let content;
+        document.getElementById('file').onchange = e => {
+            const reader = new FileReader();
+            reader.onload = ev => {
+                content = ev.target.result;
+                document.querySelector('.upload-area').innerHTML = '✅ Arquivo carregado!';
+                document.getElementById('convert').style.display = 'block';
+            };
+            reader.readAsText(e.target.files[0]);
+        };
+
+        document.getElementById('convert').onclick = () => {
+            let md = '# Flashcards do Anki\n\n';
+            content.split('\n').forEach(line => {
+                const p = line.split('\t');
+                if (p[0] && p[1]) {
+                    md += `## ${p[0]}\n\n**Resposta:** ${p[1]}\n\n---\n\n`;
+                }
+            });
+            const blob = new Blob([md], {type: 'text/markdown'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'flashcards.md';
+            a.click();
+        };
+    </script>
+</body>
+</html>
